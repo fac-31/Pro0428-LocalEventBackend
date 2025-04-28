@@ -1,5 +1,10 @@
 {
+  "scripts": {
+      "mongodb": "deno run --allow-env --allow-read --allow-sys --allow-net mongodb.ts"
+  },
   "dependencies": {
-    "deno": "^2.2.12"
+    "deno": "^2.2.12",
+    "dotenv": "^16.5.0",
+    "mongodb": "^6.16.0"
   }
 }
