@@ -1,9 +1,9 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
+import { Router } from 'https://deno.land/x/oak/mod.ts';
 
 const router = new Router();
 
-router.get("/", (ctx) => {
-    ctx.response.body = "Hello all you lovely locals!";
+router.get('/', (ctx) => {
+  ctx.response.body = 'Hello all you lovely locals!';
 });
 
-export default router
+export default router;

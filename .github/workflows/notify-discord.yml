@@ -1,0 +1,33 @@
+name: Webhook on Pull Request
+
+on:
+  pull_request:
+    types: [opened, reopened, edited]
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send a request to Discord webhook
+        run: |
+          curl -H "Content-Type: application/json" -X POST -d '{
+            "username": "GitHub",
+            "content": "@everyone",
+            "embeds": [
+              {
+                "type": "rich",
+                "title": "📣 New Pull Request",
+                "description": "New changes on **DroneGPS** by `${{ github.actor }}`",
+                "color": 2123412,
+                "author": {
+                  "name": "${{ github.actor }}",
+                  "url": "https://github.com/${{ github.actor }}",
+                  "icon_url": "https://github.com/${{ github.actor }}.png"
+                },
+                "url": "${{ github.event.pull_request.html_url }}"
+              }
+            ]
+          }' ${{ secrets.WEBHOOK_URL }}
