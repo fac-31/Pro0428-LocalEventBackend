@@ -18,7 +18,7 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.x  # Use latest stable
+          deno-version: v1.x # Use latest stable
 
       - name: Check code formatting
         run: deno fmt --check
