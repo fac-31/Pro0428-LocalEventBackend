@@ -20,7 +20,7 @@ jobs:
               {
                 "type": "rich",
                 "title": "📣 New Pull Request",
-                "description": "New changes on **DroneGPS** by `${{ github.actor }}`",
+                "description": "New changes on The Local Backend by `${{ github.actor }}`",
                 "color": 2123412,
                 "author": {
                   "name": "${{ github.actor }}",
