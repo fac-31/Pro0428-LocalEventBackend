@@ -24,7 +24,7 @@ export async function connectToDatabase() {
 
   // Insert user to collection
   const user: User = {
-    name_first: 'First Name',
+    name_first: 'Not David',
     name_last: 'Last Name',
     email: 'example@gmail.com',
     username: 'UniqueName',
@@ -41,7 +41,7 @@ export async function connectToDatabase() {
 
   // Insert event to collection
   const event: Event = {
-    mode: 'Sports',
+    mode: 'Other',
     name: 'Event Header',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec congue eros, scelerisque vestibulum ante.',
@@ -58,8 +58,8 @@ export async function connectToDatabase() {
   await users.updateOne(
     { username: user.username }, // filter, _id could be used instead of username
     {
-      $set: {
-        saved_events: [result.insertedId],
+      $addToSet: {
+        saved_events: result.insertedId,
       },
     },
   );
