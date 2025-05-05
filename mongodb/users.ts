@@ -4,5 +4,5 @@ export interface User {
     email: string;
     username: string;
     password: string;
-    saved_events: string[];
+    saved_events: ObjectId[];
 }
