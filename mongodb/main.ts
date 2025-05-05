@@ -5,7 +5,13 @@ import { User } from './users.ts';
 
 export async function connectToDatabase() {
   // Connect to mongoDB
-  const client: MongoClient = new MongoClient(Deno.env.get('DB_CONN_STRING'));
+  const DBConnString: string | undefined = Deno.env.get('DB_CONN_STRING');
+
+  if (!DBConnString) {
+    throw new Error('DB_CONN_STRING environment variable is not set.');
+  }
+
+  const client: MongoClient = new MongoClient(DBConnString);
 
   console.log('Connecting to MongoDB...');
 
@@ -18,23 +24,24 @@ export async function connectToDatabase() {
 
   // Insert user to collection
   const user: User = {
-    name_first: 'First Name',
+    name_first: 'Not David',
     name_last: 'Last Name',
     email: 'example@gmail.com',
     username: 'UniqueName',
     password: 'password1',
+    saved_events: [],
   };
 
   const users: Collection<User> = db.collection<User>('users');
   await users.insertOne(user);
 
   // Print out the current amount of inserted values
-  const list: Array = await users.find({}).toArray();
+  const list: Array<User> = await users.find({}).toArray();
   console.log(`users count: ${list.length}`);
 
   // Insert event to collection
   const event: Event = {
-    mode: 'Sports',
+    mode: 'Other',
     name: 'Event Header',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec congue eros, scelerisque vestibulum ante.',
@@ -44,15 +51,15 @@ export async function connectToDatabase() {
     url: 'https://www.greatevent.com',
   };
 
-  const events: Collection<Event> = db.collection<User>('events');
+  const events: Collection<Event> = db.collection<Event>('events');
   const result = await events.insertOne(event);
 
   // After obtaining id of newly created event (result.insertedId), update user we just created to have it as saved event
   await users.updateOne(
     { username: user.username }, // filter, _id could be used instead of username
     {
-      $set: {
-        saved_events: [result.insertedId],
+      $addToSet: {
+        saved_events: result.insertedId,
       },
     },
   );
