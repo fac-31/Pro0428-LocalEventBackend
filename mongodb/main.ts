@@ -29,7 +29,7 @@ export async function connectToDatabase() {
   await users.insertOne(user);
 
   // Print out the current amount of inserted values
-  let list: Array = await users.find({}).toArray();
+  const list: Array = await users.find({}).toArray();
   console.log(`users count: ${list.length}`);
 
   // Insert event to collection
