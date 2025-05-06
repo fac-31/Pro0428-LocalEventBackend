@@ -1,5 +1,3 @@
-console.log('Setting up Oak app...');
-
 import { Application } from 'https://deno.land/x/oak/mod.ts';
 import router from './routes/index.ts';
 
