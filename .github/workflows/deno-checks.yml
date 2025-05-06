@@ -27,6 +27,6 @@ jobs:
         run: deno lint
 
       - name: Type check
-        run: deno check main.ts
+        run: deno check .
 
 # Consider test workflow, check for outdated dependencies,  & unused variable - deno -check, deno deploy
