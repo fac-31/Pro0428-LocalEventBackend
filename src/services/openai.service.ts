@@ -1,0 +1,2 @@
+// interacts with openAi
+// generateEventsfromPrompt

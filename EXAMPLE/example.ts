@@ -1,3 +1,5 @@
+// We should delete this at some point but I've left it in to reference
+
 import { Collection, Db, MongoClient } from 'npm:mongodb@6.1.0';
 
 import { Event } from './events.ts';
