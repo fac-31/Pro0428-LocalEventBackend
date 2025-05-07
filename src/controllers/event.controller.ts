@@ -1,9 +1,10 @@
 // deno-lint-ignore-file require-await
 import { Context } from '../../deps.ts';
+import { eventService } from '../services/event.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
-  // TODO: Call eventService.getAllEvents()
-  ctx.response.body = { message: 'List all events' };
+  const allEvents = await eventService.getAllEvents();
+  ctx.response.body = allEvents;
 };
 
 export const getEvent = async (ctx: Context) => {
