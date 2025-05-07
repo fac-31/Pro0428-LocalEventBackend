@@ -6,7 +6,7 @@ const router = new Router();
 // Routes under /events
 
 // -> to controllers
-router.get("/", getAllEvents)
+router.get('/', getAllEvents);
 // router.get("/:id", getEvent)
 // router.post("/")
 // router.put("/:id", updateEvent)
