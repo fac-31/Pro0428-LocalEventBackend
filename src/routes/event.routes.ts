@@ -13,8 +13,10 @@ router
 // -> to controllers
 // router.get("/", getAllEvents)
 // router.get("/:id", getEvent)
-// router.post("/generate", generateEvents) (using the openAi service)
+// router.post("/")
 // router.put("/:id", updateEvent)
 // router.delete("/:id", deleteEvent)
+
+// router.post("/generate", generateEvents) (using the openAi service)
 
 export default router;
