@@ -1,5 +1,5 @@
 // deno-lint-ignore-file require-await
-import { Context, ObjectId, Status } from '../../deps.ts';
+import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
@@ -7,7 +7,7 @@ export const getAllEvents = async (ctx: Context) => {
   ctx.response.body = allEvents;
 };
 
-export const getEventById = async (ctx: Context) => {
+export const getEventById = async (ctx: RouterContext<string>) => {
   // TODO fix type checking Context not having "params"
   const id: string = ctx.params.id;
 
