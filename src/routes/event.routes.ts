@@ -1,5 +1,5 @@
 import { Router } from '../../deps.ts';
-import { getAllEvents } from '../controllers/event.controller.ts';
+import { getAllEvents, getEvent } from '../controllers/event.controller.ts';
 
 const router = new Router();
 
@@ -7,7 +7,7 @@ const router = new Router();
 
 // -> to controllers
 router.get('/', getAllEvents);
-// router.get("/:id", getEvent)
+router.get('/:id', getEvent);
 // router.post("/")
 // router.put("/:id", updateEvent)
 // router.delete("/:id", deleteEvent)
