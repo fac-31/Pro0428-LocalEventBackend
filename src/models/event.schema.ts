@@ -1,15 +1,17 @@
-import { z } from '../../deps.ts';
+import { z } from '../../deps.ts'
 
 export const eventSchema = z.object({
     mode: z.enum(['Music', 'Charity', 'Sports', 'Other']),
-    name: z.string().min(1),
-    description: z.string().min(10),
-    location: z.string().min(1),
-    date: z.coerce.date(),
-    price: z.number().nonnegative(),
-    url: z.string().url()    
+    name: z.string(),
+    description: z.string(),
+    location: z.string(),
+    date: z.string(),
+    price: z.number(),
+    url: z.string()   
 });
 
-export const eventsArraySchema = z.array(eventSchema);
+export const eventsArraySchema =  z.object({
+    events: z.array(eventSchema)
+})
 
 export type event = z.infer<typeof eventsArraySchema>
