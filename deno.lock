@@ -3,6 +3,7 @@
   "specifiers": {
     "jsr:@lucsoft/web-bson@0.4": "0.4.0",
     "jsr:@oak/commons@1": "1.0.0",
+    "jsr:@openai/openai@^4.98.0": "4.98.0",
     "jsr:@std/assert@1": "1.0.13",
     "jsr:@std/bytes@1": "1.0.5",
     "jsr:@std/crypto@1": "1.0.4",
@@ -20,7 +21,8 @@
     "npm:m@*": "1.9.1",
     "npm:mo@*": "1.7.3",
     "npm:mongodb@6.1.0": "6.1.0",
-    "npm:path-to-regexp@^6.3.0": "6.3.0"
+    "npm:path-to-regexp@^6.3.0": "6.3.0",
+    "npm:zod@3": "3.24.4"
   },
   "jsr": {
     "@lucsoft/web-bson@0.4.0": {
@@ -35,6 +37,12 @@
         "jsr:@std/encoding@1",
         "jsr:@std/http",
         "jsr:@std/media-types"
+      ]
+    },
+    "@openai/openai@4.98.0": {
+      "integrity": "c3f1b428c2529713f20d5f66b34eea9f9e2d3f5822f12a84ff561b4b80ecbc9f",
+      "dependencies": [
+        "npm:zod"
       ]
     },
     "@std/assert@1.0.13": {
@@ -169,6 +177,9 @@
         "tr46",
         "webidl-conversions"
       ]
+    },
+    "zod@3.24.4": {
+      "integrity": "sha512-OdqJE9UDRPwWsrHjLN2F8bPxvwJBK22EHLWtanu0LSYr5YqzsaaW3RMgmjwr8Rypg5k+meEJdSPXJZXE/yqOMg=="
     }
   },
   "redirects": {
@@ -322,6 +333,7 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@openai/openai@^4.98.0",
       "jsr:@std/assert@1"
     ],
     "packageJson": {
