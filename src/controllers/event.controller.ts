@@ -8,17 +8,20 @@ export const getAllEvents = async (ctx: Context) => {
 };
 
 export const getEventById = async (ctx: Context) => {
-  if (!ObjectId.isValid(ctx.params.id)) {
+  // TODO fix type checking Context not having "params"
+  const id: string = ctx.params.id;
+
+  if (!ObjectId.isValid(id)) {
     ctx.response.status = Status.BadRequest;
-    ctx.response.body = `Invalid event id "${ctx.params.id}"`;
+    ctx.response.body = `Invalid event id "${id}"`;
     return;
   }
 
-  const event = await eventService.getEventById(ctx.params.id);
+  const event = await eventService.getEventById(id);
 
   if (!event) {
     ctx.response.status = Status.NotFound;
-    ctx.response.body = `Event id "${ctx.params.id}" does not exist`;
+    ctx.response.body = `Event id "${id}" does not exist`;
     return;
   }
 
