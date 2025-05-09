@@ -1,4 +1,4 @@
-import { ObjectId } from 'npm:mongodb@6.1.0';
+import { ObjectId } from '../../deps.ts';
 
 export interface User {
   name_first: string;
