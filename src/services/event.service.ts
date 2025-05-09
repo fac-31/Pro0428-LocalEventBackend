@@ -14,7 +14,7 @@ const getAllEvents = async (): Promise<Event[]> => {
   return await events.find().toArray();
 };
 
-const getEventById = async (id: string): Promise<Event> => {
+const getEventById = async (id: string): Promise<Event | null> => {
   return await events.findOne({ _id: new ObjectId(id) });
 };
 
