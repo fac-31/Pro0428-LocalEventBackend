@@ -1,9 +1,11 @@
 // getAllEvents - DONE
+// getEvent - DONE
 // getEventById
 // createEvents
 // updateEvent
 // deleteEvent
 
+import { ObjectId } from '../../deps.ts';
 import { db } from '../database/connect.ts';
 import { Event } from '../models/event.model.ts';
 
@@ -13,6 +15,11 @@ const getAllEvents = async (): Promise<Event[]> => {
   return await events.find().toArray();
 };
 
+const getEvent = async (id: string): Promise<Event> => {
+  return await events.findOne({ _id: new ObjectId(id) });
+};
+
 export const eventService = {
   getAllEvents,
+  getEvent,
 };

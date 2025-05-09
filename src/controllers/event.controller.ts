@@ -8,8 +8,8 @@ export const getAllEvents = async (ctx: Context) => {
 };
 
 export const getEvent = async (ctx: Context) => {
-  // TODO: Get event by ID from ctx.params.id
-  ctx.response.body = { message: `Get event using params.id` };
+  const event = await eventService.getEvent(ctx.params.id);
+  ctx.response.body = event;
 };
 
 export const createEvent = async (ctx: Context) => {
