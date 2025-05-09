@@ -1,6 +1,5 @@
 // getAllEvents - DONE
-// getEvent - DONE
-// getEventById
+// getEventById - DONE
 // createEvents
 // updateEvent
 // deleteEvent
@@ -15,11 +14,11 @@ const getAllEvents = async (): Promise<Event[]> => {
   return await events.find().toArray();
 };
 
-const getEvent = async (id: string): Promise<Event> => {
+const getEventById = async (id: string): Promise<Event> => {
   return await events.findOne({ _id: new ObjectId(id) });
 };
 
 export const eventService = {
   getAllEvents,
-  getEvent,
+  getEventById,
 };

@@ -7,14 +7,14 @@ export const getAllEvents = async (ctx: Context) => {
   ctx.response.body = allEvents;
 };
 
-export const getEvent = async (ctx: Context) => {
+export const getEventById = async (ctx: Context) => {
   if (!ObjectId.isValid(ctx.params.id)) {
     ctx.response.status = Status.BadRequest;
     ctx.response.body = `Invalid event id "${ctx.params.id}"`;
     return;
   }
 
-  const event = await eventService.getEvent(ctx.params.id);
+  const event = await eventService.getEventById(ctx.params.id);
 
   if (!event) {
     ctx.response.status = Status.NotFound;
