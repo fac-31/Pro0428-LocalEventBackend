@@ -1,5 +1,5 @@
 // deno-lint-ignore-file require-await
-import { Context } from '../../deps.ts';
+import { Context, Status, ObjectId } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
@@ -8,6 +8,12 @@ export const getAllEvents = async (ctx: Context) => {
 };
 
 export const getEvent = async (ctx: Context) => {
+  if (!ObjectId.isValid(ctx.params.id)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body =`Invalid event id ${ctx.params.id}`;
+    return;
+  }
+
   const event = await eventService.getEvent(ctx.params.id);
   ctx.response.body = event;
 };
