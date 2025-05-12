@@ -1,7 +1,6 @@
-
 // deno run --allow-env --allow-net --allow-read --allow-write ./src./services./openai.service.ts
 
-import { eventsArraySchema, completeEventType } from '../models/event.schema.ts';
+import { eventsArraySchema, completeEventType } from '../models/event.model.ts';
 import { OpenAI, zodTextFormat } from '../../deps.ts';
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 

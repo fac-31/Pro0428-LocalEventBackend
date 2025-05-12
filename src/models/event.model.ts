@@ -1,12 +1,26 @@
-export type EventMode = 'Music' | 'Charity' | 'Sports' | 'Other';
+import { z } from '../../deps.ts'
 
-export interface Event {
-  mode: EventMode;
-  name: string;
-  description: string;
-  location: string;
-  date: Date;
-  price: number;
-  url: string;
-}
-// This can be removed and then in event.schema we can infer type from the event schema
+const eventModeEnum = z.enum(['Music', 'Charity', 'Sports', 'Other']);
+
+export type EventMode = z.infer<typeof eventModeEnum>;
+
+export const eventSchema = z.object({
+    mode: eventModeEnum,
+    name: z.string(),
+    description: z.string(),
+    location: z.string(),
+    date: z.string(),
+    price: z.number(),
+    url: z.string()   
+});
+
+export const eventsArraySchema =  z.object({
+    musicEvents: z.array(eventSchema),
+    charityEvents: z.array(eventSchema),
+    sportEvents: z.array(eventSchema),
+    otherEvents: z.array(eventSchema)
+})
+
+export type event = z.infer<typeof eventSchema>;
+
+export type completeEventType = z.infer<typeof eventsArraySchema>;
