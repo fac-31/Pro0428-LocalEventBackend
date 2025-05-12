@@ -1,5 +1,5 @@
 // deno-lint-ignore-file require-await
-import { Context } from '../../deps.ts';
+import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
@@ -7,9 +7,25 @@ export const getAllEvents = async (ctx: Context) => {
   ctx.response.body = allEvents;
 };
 
-export const getEvent = async (ctx: Context) => {
-  // TODO: Get event by ID from ctx.params.id
-  ctx.response.body = { message: `Get event using params.id` };
+export const getEventById = async (ctx: RouterContext<'/:id'>) => {
+  // TODO fix type checking Context not having "params"
+  const id: string = ctx.params.id;
+
+  if (!ObjectId.isValid(id)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Invalid event id "${id}"`;
+    return;
+  }
+
+  const event = await eventService.getEventById(id);
+
+  if (!event) {
+    ctx.response.status = Status.NotFound;
+    ctx.response.body = `Event id "${id}" does not exist`;
+    return;
+  }
+
+  ctx.response.body = event;
 };
 
 export const createEvent = async (ctx: Context) => {
