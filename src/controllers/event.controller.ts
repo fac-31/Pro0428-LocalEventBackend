@@ -7,7 +7,7 @@ export const getAllEvents = async (ctx: Context) => {
   ctx.response.body = allEvents;
 };
 
-export const getEventById = async (ctx: RouterContext<string>) => {
+export const getEventById = async (ctx: RouterContext<'/:id'>) => {
   // TODO fix type checking Context not having "params"
   const id: string = ctx.params.id;
 
