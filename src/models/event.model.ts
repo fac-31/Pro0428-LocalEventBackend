@@ -9,3 +9,4 @@ export interface Event {
   price: number;
   url: string;
 }
+// This can be removed and then in event.schema we can infer type from the event schema

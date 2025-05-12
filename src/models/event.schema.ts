@@ -11,7 +11,10 @@ export const eventSchema = z.object({
 });
 
 export const eventsArraySchema =  z.object({
-    events: z.array(eventSchema)
+    musicEvents: z.array(eventSchema),
+    charityEvents: z.array(eventSchema),
+    sportEvents: z.array(eventSchema),
+    otherEvents: z.array(eventSchema)
 })
 
-export type event = z.infer<typeof eventsArraySchema>
+export type completeEventType = z.infer<typeof eventsArraySchema>
