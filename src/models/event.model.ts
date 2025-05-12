@@ -21,6 +21,6 @@ export const eventsArraySchema =  z.object({
     otherEvents: z.array(eventSchema)
 })
 
-export type event = z.infer<typeof eventSchema>;
+export type Event = z.infer<typeof eventSchema>;
 
-export type completeEventType = z.infer<typeof eventsArraySchema>;
+export type CompleteEventType = z.infer<typeof eventsArraySchema>;

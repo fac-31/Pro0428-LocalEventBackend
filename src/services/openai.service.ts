@@ -1,21 +1,23 @@
-// deno run --allow-env --allow-net --allow-read --allow-write ./src./services./openai.service.ts
+// Runs AI to console if comments are uncommented; deno run --allow-env --allow-net --allow-read --allow-write ./src./services./openai.service.ts
 
-import { eventsArraySchema, completeEventType } from '../models/event.model.ts';
+import { eventsArraySchema, CompleteEventType, EventMode } from '../models/event.model.ts';
 import { OpenAI, zodTextFormat } from '../../deps.ts';
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 
-const AI_Key = Deno.env.get('AI_KEY');
+const AI_Key: string | undefined = Deno.env.get('AI_KEY');
 if (!AI_Key) {
     throw new Error('AI_KEY environment variable not set.');
   };
 
-const clientAI = new OpenAI({
+const clientAI: OpenAI = new OpenAI({
     apiKey: AI_Key
 });
 
-export const generateEvents = async (category: string, location: string): Promise<completeEventType | null | void> => {
+export const generateEvents = async (category: EventMode[], location: string): Promise<CompleteEventType | null> => {
     
-    const userPrompt: string = `List 5 events for each ${category} near ${location}. Return only valid JSON in this format:
+    const catString: string = category.join(" ")
+
+    const userPrompt: string = `List 5 events each for ${catString} near ${location}. Return only valid JSON in this format:
     {
         musicEvents: [
         {
@@ -30,10 +32,10 @@ export const generateEvents = async (category: string, location: string): Promis
         ...
         ],
         ...
-    }`
+    }`;
 
-    const systemPrompt = `You are a local guide who is an expert on ${location} and all the interesting events in that area. You will respond
-    with the specified events near this location in the valid format.`
+    const systemPrompt: string = `You are a local guide who is an expert on ${location} and all the interesting events in that area. You will respond
+    with the specified events near this location in the valid format.`;
     
     try {
         const response = await clientAI.responses.parse({
@@ -51,13 +53,20 @@ export const generateEvents = async (category: string, location: string): Promis
             text: {
                 format: zodTextFormat(eventsArraySchema, "events")
             }
-        })
-             const event = response.output_parsed;
-             console.log(event)
-             return event   
-    } catch (error) {
-        return console.log(error)    
-    }
-}
+        });
 
-generateEvents("Music, Charity, Sports, Other", "Finsbury Park");
+        const event = response.output_parsed as CompleteEventType;
+        // console.log(event)
+        return event;
+
+    } catch (error: unknown) {
+
+        if (error instanceof Error) {
+            throw new Error(`AI API call failed: ${error.message}`);
+        } else {
+            throw new Error('AI API call failed with an unknown error');
+        };   
+    };
+};
+
+// generateEvents(['Music', 'Charity', 'Sports', 'Other'], "Finsbury Park");
