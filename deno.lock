@@ -16,8 +16,6 @@
     "jsr:@std/media-types@1": "1.1.0",
     "jsr:@std/path@1": "1.0.9",
     "npm:@types/node@*": "22.12.0",
-    "npm:deno@2.2.12": "2.2.12",
-    "npm:deno@^2.2.12": "2.2.12",
     "npm:m@*": "1.9.1",
     "npm:mo@*": "1.7.3",
     "npm:mongodb@6.1.0": "6.1.0",
@@ -132,11 +130,6 @@
     },
     "bson@6.10.3": {
       "integrity": "sha512-MTxGsqgYTwfshYWTRdmZRC+M7FnG1b4y7RO7p2k3X24Wq0yv1m77Wsj0BzlPzd/IowgESfsruQCUToa7vbOpPQ=="
-    },
-    "deno@2.2.12": {
-      "integrity": "sha512-+uvh18hg2HxVrDNDNcplS6GKFjLwqMBqjm2dR6usyQVwgrZEOPlSwdEpm8uYo8RkX9srrDLW45W5trsikmShsw==",
-      "scripts": true,
-      "bin": true
     },
     "m@1.9.1": {
       "integrity": "sha512-fwf9xG/pXB1z0SNYfDA5hIzZ6F0gNB1O5oZNYPP4+sEJmBGIohRcAGWrbNXIA/GLIHK1udwG2vErnqSY1q2ozQ==",
@@ -459,11 +452,6 @@
     "dependencies": [
       "jsr:@openai/openai@^4.98.0",
       "jsr:@std/assert@1"
-    ],
-    "packageJson": {
-      "dependencies": [
-        "npm:deno@^2.2.12"
-      ]
-    }
+    ]
   }
 }
