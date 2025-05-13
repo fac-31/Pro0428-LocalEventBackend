@@ -1,18 +1,17 @@
 import { Router } from '../../deps.ts';
+import {
+  getCurrentUser,
+  loginUser,
+  signUpUser,
+} from '../controllers/auth.controller.ts';
+import ProtectRoute from '../middleware/protectRoute.ts';
 
 const router = new Router();
 
 // Routes under /auth
-
-// Temporary stub for testing
-router.get('/', (ctx) => {
-  ctx.response.body = 'Auth route root';
-});
-
-// -> to controllers
-// router.get("/me", getCurrentUser)
-// router.post("/signup", signUpUser)
-// router.post("/login", loginUser)
+router.get('/me', ProtectRoute, getCurrentUser);
+router.post('/signup', signUpUser);
+router.post('/login', loginUser);
 // router.post("/logout", logoutUser)
 
 export default router;
