@@ -2,7 +2,6 @@ import { Context, Next } from '../../deps.ts';
 import { verifyToken } from '../utils/token.utils.ts';
 
 const ProtectRoute = async (ctx: Context, next: Next) => {
-  console.log('PROTEC');
   const auth = ctx.request.headers.get('Authorization');
   if (!auth) {
     ctx.response.status = 401;
