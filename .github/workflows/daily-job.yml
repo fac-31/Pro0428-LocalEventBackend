@@ -1,0 +1,14 @@
+name: Trigger Deno Deploy Daily Job
+
+on:
+    # schedule:
+    #    - cron: "0 0 * * *"
+    workflow_dispatch:
+
+jobs: 
+    ping:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Trigger daily task
+              run: curl "https://your-deploy-url.deno.dev/?token=${{ secrets.DAILY_JOB_TOKEN }}"
+                

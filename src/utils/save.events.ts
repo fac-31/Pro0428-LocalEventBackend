@@ -26,7 +26,6 @@ export const saveEvents = async (input: Event | CompleteEventType) => {
     if (isCompleteEventType(input)) {
         for (const eventCategory of Object.values(input)) {
 
-
             for (const event of eventCategory) {
 
                 if (!(await databaseIncludes(event))) {
