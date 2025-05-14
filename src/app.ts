@@ -5,7 +5,7 @@ import router from './routes/index.ts';
 
 const app = new Application();
 
-app.use(oakCors({origin: "http://localhost:5173"}));    // Allow local frontend to bypass cors requirement
+app.use(oakCors({ origin: 'http://localhost:5173' })); // Allow local frontend to bypass cors requirement
 app.use(router.routes());
 app.use(router.allowedMethods());
 
