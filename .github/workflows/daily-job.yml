@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger daily task
-        run: curl "https://your-deploy-url.deno.dev/?token=${{ secrets.DAILY_JOB_TOKEN }}"
+        run: 'curl -H "X-Daily-Token: ${{ secrets.DAILY_JOB_TOKEN }}" https://your-deploy-url.deno.dev/'
