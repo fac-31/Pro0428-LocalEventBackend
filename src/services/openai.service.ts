@@ -46,8 +46,11 @@ export const generateEvents = async (
     with the specified events near this location in the valid format.`;
 
   try {
-    const formatParser = zodTextFormat(eventsArraySchema, 'events') as ReturnType<typeof zodTextFormat>;
-    
+    const formatParser = zodTextFormat(
+      eventsArraySchema,
+      'events',
+    ) as ReturnType<typeof zodTextFormat>;
+
     const response = await clientAI.responses.parse({
       model: 'gpt-4.1',
       instructions: systemPrompt,
@@ -60,7 +63,7 @@ export const generateEvents = async (
           city: location,
         },
       }],
-       text: {
+      text: {
         format: formatParser,
       },
     });
