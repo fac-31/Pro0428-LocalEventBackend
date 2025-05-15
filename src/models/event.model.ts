@@ -18,7 +18,7 @@ export const eventsArraySchema = z.object({
   musicEvents: z.array(eventSchema),
   charityEvents: z.array(eventSchema),
   sportEvents: z.array(eventSchema),
-  otherEvents: z.array(eventSchema)
+  otherEvents: z.array(eventSchema),
 });
 
 export type Event = z.infer<typeof eventSchema>;

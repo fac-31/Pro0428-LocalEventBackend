@@ -1,4 +1,4 @@
-import { create, verify, Payload } from '../../deps.ts';
+import { create, Payload, verify } from '../../deps.ts';
 
 const secret = Deno.env.get('CRYPTO_SECRET');
 if (!secret) {
