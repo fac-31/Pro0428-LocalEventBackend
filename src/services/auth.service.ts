@@ -1,28 +1,43 @@
 import { db } from '../database/connect.ts';
-import { toSafeUser, UserInDB, UserInput } from '../models/user.model.ts';
+import {
+  NewUser,
+  toSafeUser,
+  UserInDB,
+  UserLogInInput,
+  UserSignUpInput,
+} from '../models/user.model.ts';
 import { compare, hash } from 'https://deno.land/x/bcrypt/mod.ts';
 import { generateToken } from '../utils/token.utils.ts';
+import type { OptionalId } from '../../deps.ts';
 
-const users = db.collection<UserInDB>('users');
+const users = db.collection<OptionalId<UserInDB>>('users');
 
-const createUser = async (userInput: UserInput) => {
-  const exists = await users.findOne({ email: userInput.email });
-  if (exists) {
-    throw new Error('User with this email already exists');
+const createUser = async (userInput: UserSignUpInput) => {
+  const existingUser = await users.findOne({
+    $or: [{ email: userInput.email }, { username: userInput.username }],
+  });
+
+  if (existingUser) {
+    if (existingUser.email === userInput.email) {
+      throw new Error('User with this email already exists');
+    }
+    if (existingUser.username === userInput.username) {
+      throw new Error('This username is already in use');
+    }
   }
-
   const passwordHash = await hash(userInput.password);
-  const userToInsert: UserInDB = {
+  const userToInsert: NewUser = {
     ...userInput,
     password: passwordHash,
     saved_events: [],
   };
-  const insertedId = await users.insertOne(userToInsert);
-  return insertedId;
+  const result = await users.insertOne(userToInsert);
+  if (!result) throw new Error('Failed to insert user');
+  return result;
 };
 
-const logInUser = async (userInput: UserInput) => {
-  const exists = await users.findOne({ email: userInput.email });
+const logInUser = async (userInput: UserLogInInput) => {
+  const exists = await users.findOne({ username: userInput.username });
   const validPassword = exists === null
     ? false
     : await compare(userInput.password, exists.password);
