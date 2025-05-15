@@ -1,6 +1,6 @@
 // deno-lint-ignore-file require-await
 import { Context, RouterContext } from '../../deps.ts';
-import { UserInputSchema } from '../models/user.model.ts';
+import { UserLogInSchema, UserSignUpSchema } from '../models/user.model.ts';
 import { authService } from '../services/auth.service.ts';
 
 export const getCurrentUser = async (ctx: Context) => {
@@ -19,7 +19,7 @@ export const getCurrentUser = async (ctx: Context) => {
 
 export const signUpUser = async (ctx: RouterContext<'/signup'>) => {
   const body = await ctx.request.body.json();
-  const userInput = UserInputSchema.safeParse(body);
+  const userInput = UserSignUpSchema.safeParse(body);
 
   if (!userInput.success) {
     ctx.response.status = 400;
@@ -42,7 +42,7 @@ export const signUpUser = async (ctx: RouterContext<'/signup'>) => {
 
 export const loginUser = async (ctx: RouterContext<'/login'>) => {
   const body = await ctx.request.body.json();
-  const userInput = UserInputSchema.safeParse(body);
+  const userInput = UserLogInSchema.safeParse(body);
   if (!userInput.success) {
     ctx.response.status = 400;
     ctx.response.body = { errors: userInput.error.flatten() };

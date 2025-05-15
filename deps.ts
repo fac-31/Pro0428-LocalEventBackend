@@ -19,3 +19,4 @@ export {
 
 // MongoDB
 export { ObjectId } from 'npm:mongodb@6.1.0';
+export type { OptionalId } from 'npm:mongodb@6.1.0';
