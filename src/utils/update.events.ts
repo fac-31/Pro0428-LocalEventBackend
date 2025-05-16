@@ -1,10 +1,9 @@
-import { saveEvents } from './save.events.ts';
+import { eventService } from '../services/event.service.ts';
 import { generateEvents } from '../services/openai.service.ts';
 import { Status } from '../../deps.ts';
 
-// This file is useless until deployment. Have fun.
-
 Deno.serve(async (req: Request) => {
+  console.log("Server pinged")
   const token = req.headers.get('X-Daily-Token');
 
   // Change this to appropriate .env or github secret
@@ -22,7 +21,7 @@ Deno.serve(async (req: Request) => {
   );
 
   if (events !== null) {
-    await saveEvents(events);
+    await eventService.saveEvents(events);
 
     console.log('Events saved');
   } else {
