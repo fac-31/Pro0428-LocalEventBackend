@@ -3,7 +3,7 @@ import { generateEvents } from '../services/openai.service.ts';
 import { Status } from '../../deps.ts';
 
 Deno.serve(async (req: Request) => {
-  console.log("Server pinged")
+  console.log('Server pinged');
   const token = req.headers.get('X-Daily-Token');
 
   // Change this to appropriate .env or github secret

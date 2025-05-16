@@ -20,21 +20,17 @@ const getEventById = async (id: string): Promise<Event | null> => {
 
 const databaseIncludes = async (event: Event): Promise<boolean> => {
   try {
-
     const exists = await events.findOne({
-    name: event.name,
-    date: event.date,
-    location: event.location,
+      name: event.name,
+      date: event.date,
+      location: event.location,
     });
 
     return exists !== null;
-
   } catch (error: unknown) {
     if (error instanceof Error) {
-
       throw new Error(`Event in Db check failed: ${error.message}`);
     } else {
-
       throw new Error('Event in Db check failed with an unknown error');
     }
   }
@@ -49,49 +45,43 @@ const isCompleteEventType = (obj: unknown): obj is CompleteEventType => {
 };
 
 const saveEvents = async (input: Event | CompleteEventType) => {
-    if (isCompleteEventType(input)) {
-
-      for (const eventCategory of Object.values(input)) {
-
-        for (const event of eventCategory) {
-
-          try {
-            if (!(await databaseIncludes(event))) {
-              await events.insertOne(event);
-            }
-
-          } catch (error) {
-
-            if (error instanceof Error) {
-
-              console.error(`Event save failed: ${JSON.stringify(event)}, ${error.message}`);
-            } else {
-
-              console.error('Event save failed with an unknown error');
-            }
+  if (isCompleteEventType(input)) {
+    for (const eventCategory of Object.values(input)) {
+      for (const event of eventCategory) {
+        try {
+          if (!(await databaseIncludes(event))) {
+            await events.insertOne(event);
+          }
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error(
+              `Event save failed: ${JSON.stringify(event)}, ${error.message}`,
+            );
+          } else {
+            console.error('Event save failed with an unknown error');
           }
         }
       }
-    } else {
-      try {
-        if (!(await databaseIncludes(input))) {
+    }
+  } else {
+    try {
+      if (!(await databaseIncludes(input))) {
         await events.insertOne(input);
-        }
-
-      } catch (error) {
-        if (error instanceof Error) {
-
-          console.error(`Event save failed: ${JSON.stringify(input)}, ${error.message}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(
+          `Event save failed: ${JSON.stringify(input)}, ${error.message}`,
+        );
       } else {
-
         console.error('Event save failed with an unknown error');
       }
     }
-  }  
+  }
 };
 
 export const eventService = {
   getAllEvents,
   getEventById,
-  saveEvents
+  saveEvents,
 };
