@@ -1,6 +1,7 @@
 // deno-lint-ignore-file require-await
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
+import { generateEvents } from '../services/openai.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
   const allEvents = await eventService.getAllEvents();
@@ -33,9 +34,35 @@ export const createEvent = async (ctx: Context) => {
   ctx.response.body = { message: 'Create new event' };
 };
 
-export const generateEvents = async (ctx: Context) => {
-  // TODO: Use OpenAI API via service, then store generated events
-  ctx.response.body = { message: 'Generate events from prompt' };
+export const saveEventsCronHandler = async (ctx: Context) => {
+  console.log('Server pinged');
+  const token = ctx.request.headers.get('X-Daily-Token');
+
+  // Change this to appropriate .env or github secret
+  const expectedToken = Deno.env.get('DAILY_JOB_TOKEN');
+
+  if (token !== expectedToken) {
+    ctx.response.status = Status.Forbidden;
+    ctx.response.body = 'Forbidden';
+    return;
+  }
+
+  console.log('Daily task triggered');
+
+  const events = await generateEvents(
+    ['Music', 'Charity', 'Sports', 'Other'],
+    'Finsbury Park',
+  );
+
+  if (events !== null) {
+    await eventService.saveEvents(events);
+    ctx.response.body = 'Events saved sucessfully';
+    console.log('Events saved');
+  } else {
+    ctx.response.status = Status.NoContent;
+    ctx.response.body = 'No events to save';
+    console.log('There were no events to save');
+  }
 };
 
 export const updateEvent = async (ctx: Context) => {
