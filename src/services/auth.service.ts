@@ -6,7 +6,7 @@ import {
   UserLogInInput,
   UserSignUpInput,
 } from '../models/user.model.ts';
-import { compare, hash } from 'https://deno.land/x/bcrypt/mod.ts';
+import { compare, hash } from '../../deps.ts';
 import { generateToken } from '../utils/token.utils.ts';
 import type { OptionalId } from '../../deps.ts';
 

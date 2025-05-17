@@ -1,4 +1,4 @@
-import { z } from 'https://deno.land/x/zod/mod.ts';
+import { z } from '../../deps.ts';
 import { ObjectId } from '../../deps.ts';
 
 export const UserSignUpSchema = z.object({

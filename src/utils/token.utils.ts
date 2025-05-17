@@ -1,5 +1,4 @@
-import { create, verify } from '../../deps.ts';
-import { Payload } from 'https://deno.land/x/djwt@v3.0.2/mod.ts';
+import { create, Payload, verify } from '../../deps.ts';
 
 const secret = Deno.env.get('CRYPTO_SECRET');
 if (!secret) {

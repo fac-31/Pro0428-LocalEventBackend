@@ -1,0 +1,2 @@
+POST http://localhost:3000/events/cron/save-events
+X-Daily-Token: 'Your daily token should go here, it can be found in github secrets Backend repo'
