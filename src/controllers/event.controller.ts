@@ -29,9 +29,20 @@ export const getEventById = async (ctx: RouterContext<'/:id'>) => {
   ctx.response.body = event;
 };
 
-export const createEvent = async (ctx: Context) => {
-  // TODO: Validate input, create event in DB
-  ctx.response.body = { message: 'Create new event' };
+export const saveNewEvent = async (ctx: Context) => {
+
+  const event = await ctx.request.body.json();
+  
+  if (eventService.isEvent(event)) {
+
+    eventService.saveEvents(event);
+    ctx.response.body = 'Event saved sucessfully';
+
+  } else {  
+
+  ctx.response.body = 'Create new event failed: Validation Error' ;
+  
+  }
 };
 
 export const saveEventsCronHandler = async (ctx: Context) => {

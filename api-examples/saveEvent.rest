@@ -1,0 +1,11 @@
+POST http://localhost:3000/events/save-event
+Content-Type: application/json
+
+  { "mode": "Sports",
+  "name": "National League Play-Off Final",
+  "description": "The Final to see who goes up to league two",
+  "location": "Wembley, London",
+  "date": "Good Question",
+  "price": 0,
+  "url": "No one cares this much"
+  }
