@@ -30,6 +30,7 @@ const createUser = async (userInput: UserSignUpInput) => {
     ...userInput,
     password: passwordHash,
     saved_events: [],
+    role: 'admin',
   };
   const result = await users.insertOne(userToInsert);
   if (!result) throw new Error('Failed to insert user');
