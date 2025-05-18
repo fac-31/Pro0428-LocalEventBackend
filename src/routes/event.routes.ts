@@ -3,7 +3,7 @@ import {
   getAllEvents,
   getEventById,
   saveEventsCronHandler,
-  saveNewEvent
+  saveNewEvent,
 } from '../controllers/event.controller.ts';
 
 const router = new Router();
@@ -13,7 +13,7 @@ const router = new Router();
 // -> to controllers
 router.get('/', getAllEvents);
 router.get('/:id', getEventById);
-router.post('/save-event', saveNewEvent)
+router.post('/save-event', saveNewEvent);
 router.post('/cron/save-events', saveEventsCronHandler);
 // router.post("/")
 // router.put("/:id", updateEvent)
