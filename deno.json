@@ -6,6 +6,7 @@
     "fmt:check": "deno fmt --check"
   },
   "imports": {
+    "@openai/openai": "jsr:@openai/openai@^4.98.0",
     "@std/assert": "jsr:@std/assert@1"
   },
   "nodeModulesDir": "auto",
