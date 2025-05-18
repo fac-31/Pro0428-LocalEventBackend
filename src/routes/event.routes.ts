@@ -1,5 +1,9 @@
 import { Router } from '../../deps.ts';
-import { getAllEvents, getEventById } from '../controllers/event.controller.ts';
+import {
+  getAllEvents,
+  getEventById,
+  saveEventsCronHandler,
+} from '../controllers/event.controller.ts';
 
 const router = new Router();
 
@@ -8,6 +12,7 @@ const router = new Router();
 // -> to controllers
 router.get('/', getAllEvents);
 router.get('/:id', getEventById);
+router.post('/cron/save-events', saveEventsCronHandler);
 // router.post("/")
 // router.put("/:id", updateEvent)
 // router.delete("/:id", deleteEvent)
