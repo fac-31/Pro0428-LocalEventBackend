@@ -11,8 +11,9 @@ import { NewUser } from '../models/user.model.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
 
-const getAllUsers = async (role: 'user' | 'admin'): Promise<UserInDB[]> => {
-  return await users.find({ role }).toArray();
+const getAllUsers = async (role?: 'user' | 'admin'): Promise<UserInDB[]> => {
+  const query = role ? { role } : {}
+  return await users.find(query).toArray();
 };
 
 export const userService = {
