@@ -30,18 +30,14 @@ export const getEventById = async (ctx: RouterContext<'/:id'>) => {
 };
 
 export const saveNewEvent = async (ctx: Context) => {
-// Things to note. Will this need admin authorisation? Possible need to implement token auth on this route or admin auth middleware?
+  // Things to note. Will this need admin authorisation? Possible need to implement token auth on this route or admin auth middleware?
   const event = await ctx.request.body.json();
-  
-  if (eventService.isEvent(event)) {
 
+  if (eventService.isEvent(event)) {
     eventService.saveEvents(event);
     ctx.response.body = 'Event saved sucessfully';
-
-  } else {  
-
-  ctx.response.body = 'Create new event failed: Validation Error' ;
-
+  } else {
+    ctx.response.body = 'Create new event failed: Validation Error';
   }
 };
 
