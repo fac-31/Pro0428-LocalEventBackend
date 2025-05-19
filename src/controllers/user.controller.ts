@@ -20,7 +20,7 @@ export const deleteUserAccount = async (ctx: Context) => {
 export const getAllUsers = async (ctx: RouterContext<'/:role'>) => {
   const role = ctx.params.role;
 
-  if (role !== 'user' && role !== 'admin' && role !== "all") {
+  if (role !== 'user' && role !== 'admin' && role !== 'all') {
     ctx.response.status = Status.BadRequest;
     ctx.response.body = {
       error: 'Invalid role parameter. Use "user", "admin" or "all".',
