@@ -12,17 +12,17 @@ import { NewUser } from '../models/user.model.ts';
 const users = db.collection<OptionalId<UserInDB>>('users');
 
 const getAllUsers = async (role?: 'user' | 'admin'): Promise<UserInDB[]> => {
-  const query = role ? { role } : {}
+  const query = role ? { role } : {};
   return await users.find(query).toArray();
 };
 
 export const userService = {
-    getAllUsers
-}
+  getAllUsers,
+};
 
 const _createAdmin = async () => {
   const passwordHash = await hash('supersecretadminpassword');
-   const userToInsert: NewUser = { 
+  const userToInsert: NewUser = {
     email: 'admin@example.com',
     username: 'admin',
     password: passwordHash,
@@ -30,9 +30,8 @@ const _createAdmin = async () => {
     name_last: 'User',
     saved_events: [],
     role: 'admin',
-  }
-  const result = await users.insertOne(userToInsert
-);
+  };
+  const result = await users.insertOne(userToInsert);
 
   console.log('Admin created:', result);
 };
