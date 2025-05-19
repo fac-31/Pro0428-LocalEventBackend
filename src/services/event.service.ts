@@ -6,7 +6,12 @@
 
 import { ObjectId } from '../../deps.ts';
 import { db } from '../database/connect.ts';
-import { CompleteEventType, Event } from '../models/event.model.ts';
+import {
+  CompleteEventType,
+  Event,
+  eventsArraySchema,
+  eventSchema,
+} from '../models/event.model.ts';
 
 const events = db.collection<Event>('events');
 
@@ -37,11 +42,11 @@ const databaseIncludes = async (event: Event): Promise<boolean> => {
 };
 
 const isCompleteEventType = (obj: unknown): obj is CompleteEventType => {
-  return (
-    typeof obj === 'object' &&
-    obj !== null &&
-    Object.values(obj).every((val) => Array.isArray(val))
-  );
+  return eventsArraySchema.safeParse(obj).success;
+};
+
+const isEvent = (obj: unknown): obj is Event => {
+  return eventSchema.safeParse(obj).success;
 };
 
 const saveEvents = async (input: Event | CompleteEventType) => {
@@ -84,4 +89,5 @@ export const eventService = {
   getAllEvents,
   getEventById,
   saveEvents,
+  isEvent,
 };
