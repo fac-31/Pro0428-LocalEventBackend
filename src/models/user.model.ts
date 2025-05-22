@@ -26,6 +26,7 @@ export interface UserInDB {
   username: string;
   password: string; // hashed
   saved_events: ObjectId[];
+  role: 'user' | 'admin';
 }
 
 export type NewUser = Omit<UserInDB, '_id'>;
