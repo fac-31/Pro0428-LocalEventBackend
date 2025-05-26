@@ -2,7 +2,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "Dduck@gmail.com",
-  "password": "securePassword123",
-  "username": "Donald-Duck"
+  "email": "Dkjdhsbfjewrbk@gmail.com",
+  "password": "securePassword1g23",
+  "username": "Donald-kjhsdbvcck"
 }
