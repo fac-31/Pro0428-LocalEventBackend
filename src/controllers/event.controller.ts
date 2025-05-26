@@ -1,15 +1,40 @@
 // deno-lint-ignore-file require-await
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
+import { eventFilterSchema } from '../models/event.model.ts';
 import { eventService } from '../services/event.service.ts';
 import { generateEvents } from '../services/openai.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
-  const allEvents = await eventService.getAllEvents();
+  const params = ctx.request.url.searchParams;
+
+  const rawModes = params.getAll('mode');
+
+  const normalizedModes = rawModes
+    .flatMap((param) => param.split(','))
+    .map((mode) => mode.trim().toLowerCase())
+    .filter(Boolean); // removes empty strings
+
+  const parseResult = eventFilterSchema.safeParse({
+    mode: normalizedModes.length > 0 ? normalizedModes : undefined,
+  });
+
+  let allEvents;
+  if (parseResult.success) {
+    console.log(parseResult.data);
+    allEvents = await eventService.getAllEvents(parseResult.data);
+  } else {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = {
+      error: 'Invalid query parameters',
+      details: parseResult.error.format(),
+    };
+    return;
+  }
+
   ctx.response.body = allEvents;
 };
 
 export const getEventById = async (ctx: RouterContext<'/:id'>) => {
-  // TODO fix type checking Context not having "params"
   const id: string = ctx.params.id;
 
   if (!ObjectId.isValid(id)) {
@@ -57,7 +82,7 @@ export const saveEventsCronHandler = async (ctx: Context) => {
   console.log('Daily task triggered');
 
   const events = await generateEvents(
-    ['Music', 'Charity', 'Sports', 'Other'],
+    ['music', 'charity', 'sports', 'other'],
     'Finsbury Park',
   );
 

@@ -1,6 +1,6 @@
 import { z } from '../../deps.ts';
 
-const eventModeEnum = z.enum(['Music', 'Charity', 'Sports', 'Other']);
+const eventModeEnum = z.enum(['music', 'charity', 'sports', 'other']);
 
 export type EventMode = z.infer<typeof eventModeEnum>;
 
@@ -21,6 +21,10 @@ export const eventsArraySchema = z.object({
   otherEvents: z.array(eventSchema),
 });
 
-export type Event = z.infer<typeof eventSchema>;
+export const eventFilterSchema = z.object({
+  mode: z.array(eventModeEnum).optional(),
+});
 
+export type Event = z.infer<typeof eventSchema>;
 export type CompleteEventType = z.infer<typeof eventsArraySchema>;
+export type EventFilter = z.infer<typeof eventFilterSchema>;

@@ -12,11 +12,18 @@ import {
   eventsArraySchema,
   eventSchema,
 } from '../models/event.model.ts';
+import { EventFilter } from '../models/event.model.ts';
 
 const events = db.collection<Event>('events');
 
-const getAllEvents = async (): Promise<Event[]> => {
-  return await events.find().toArray();
+const getAllEvents = async (filter: EventFilter): Promise<Event[]> => {
+  const mongoFilter: Record<string, unknown> = {};
+
+  if (filter.mode && filter.mode.length > 0) {
+    mongoFilter.mode = { $in: filter.mode };
+  }
+
+  return await events.find(mongoFilter).toArray();
 };
 
 const getEventById = async (id: string): Promise<Event | null> => {
