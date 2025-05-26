@@ -23,4 +23,15 @@ export const eventsArraySchema = z.object({
 
 export type Event = z.infer<typeof eventSchema>;
 
+export type FullEvent = {
+  mode: EventMode,
+  name: string,
+  normalizedName: string,
+  description: string,
+  location: string,
+  date: Date,
+  price: number,
+  url: string,
+}
+
 export type CompleteEventType = z.infer<typeof eventsArraySchema>;

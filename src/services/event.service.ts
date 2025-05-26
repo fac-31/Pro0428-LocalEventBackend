@@ -12,8 +12,10 @@ import {
   eventsArraySchema,
   eventSchema,
 } from '../models/event.model.ts';
+import { normalizeEventTitle, normalizeEventDate } from '../utils/event.utils.ts';
 
 const events = db.collection<Event>('events');
+//console.log(events);
 
 const getAllEvents = async (): Promise<Event[]> => {
   return await events.find().toArray();
@@ -24,10 +26,13 @@ const getEventById = async (id: string): Promise<Event | null> => {
 };
 
 const databaseIncludes = async (event: Event): Promise<boolean> => {
+  const name = normalizeEventTitle(event);
+  const date = normalizeEventDate(event);
+
   try {
     const exists = await events.findOne({
-      name: event.name,
-      date: event.date,
+      name: name,
+      date: date,
       location: event.location,
     });
 
@@ -41,11 +46,11 @@ const databaseIncludes = async (event: Event): Promise<boolean> => {
   }
 };
 
-const isCompleteEventType = (obj: unknown): obj is CompleteEventType => {
+export const isCompleteEventType = (obj: unknown): obj is CompleteEventType => {
   return eventsArraySchema.safeParse(obj).success;
 };
 
-const isEvent = (obj: unknown): obj is Event => {
+export const isEvent = (obj: unknown): obj is Event => {
   return eventSchema.safeParse(obj).success;
 };
 
