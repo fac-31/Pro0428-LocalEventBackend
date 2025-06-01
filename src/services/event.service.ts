@@ -11,7 +11,7 @@ import {
   Event,
   eventsArraySchema,
   eventSchema,
-  FullEvent
+  FullEvent,
 } from '../models/event.model.ts';
 import { normaliseEvents } from '../utils/event.utils.ts';
 
@@ -39,8 +39,6 @@ export const isEvent = (obj: unknown): obj is Event => {
   return eventSchema.safeParse(obj).success;
 };
 
-
-
 const saveEvents = async (input: Event | CompleteEventType) => {
   if (isCompleteEventType(input)) {
     // Flatten all event categories into a single array
@@ -48,11 +46,11 @@ const saveEvents = async (input: Event | CompleteEventType) => {
       ...input.musicEvents,
       ...input.charityEvents,
       ...input.sportEvents,
-      ...input.otherEvents
+      ...input.otherEvents,
     ];
-    
+
     const normalisedEvents = normaliseEvents(allEvents);
-    
+
     for (const event of normalisedEvents) {
       try {
         if (!(await databaseIncludes(event))) {
