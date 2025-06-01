@@ -32,6 +32,7 @@ export const addNormalizedProperties = (event: Event): FullEvent => {
   return fullEvent;
 }
 
+//creates an event key to match events by
 export function createEventKey(TF_IDR_Object: {[key: string]: {[key: string]: number}}, eventsV1: FullEvent[]) {
   
   eventsV1.forEach((event) => {
@@ -56,15 +57,9 @@ export function createEventKey(TF_IDR_Object: {[key: string]: {[key: string]: nu
   return eventsV1;
 }
 
-
-
-// Term frequency: frequency_of_appearance / number_of_terms
-// Inverse Document frequency: number_of_strings / number_of_strings_with_terms
-// TF-IDF value: Term_frequency * Inverse_document_frequency
-
 const names: string[] = [];
 const allTerms: string[] = [];
-
+//formats data for term frequency calculations
 export function createFrequencyArrays(testInput: FullEvent) {
   const events = testInput
   
@@ -77,10 +72,13 @@ export function createFrequencyArrays(testInput: FullEvent) {
   words.forEach((word) => {
     allTerms.push(word);
   })
-
+  
   return {'names': names, 'allTerms': allTerms};
 }
 
+// Term frequency: frequency_of_appearance / number_of_terms
+// Inverse Document frequency: number_of_strings / number_of_strings_with_terms
+// TF-IDF value: Term_frequency * Inverse_document_frequency
 export function calculateTermFrequency(frequencyObject: FrequencyObject) {
   const result: { [eventName: string]: { [term: string]: number } } = {};
 
@@ -99,6 +97,24 @@ export function calculateTermFrequency(frequencyObject: FrequencyObject) {
       result[name][term] = TF_IDF;
     });
   });
+
+  return result;
+}
+
+//co-ordinates event utility functions
+export function normaliseEvents(events: Event[]): FullEvent[] {
+
+  let frequencyObject: FrequencyObject = {names: [], allTerms: []};
+  
+  const eventsV1: FullEvent[] = []
+  for (const [, event] of events.entries()) {
+    const finalObj = addNormalizedProperties(event);
+    eventsV1.push(finalObj);
+    frequencyObject = createFrequencyArrays(finalObj);
+  }
+  
+  const TF_IDF_Object = calculateTermFrequency(frequencyObject);
+  const result: FullEvent[] = createEventKey(TF_IDF_Object, eventsV1);
 
   return result;
 }
