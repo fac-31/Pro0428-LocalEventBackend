@@ -32,6 +32,12 @@ export type FullEvent = {
   date: Date,
   price: number,
   url: string,
+  eventKey?: string
+}
+
+export type FrequencyObject = {
+  names: string[],
+  allTerms: string[]
 }
 
 export type CompleteEventType = z.infer<typeof eventsArraySchema>;

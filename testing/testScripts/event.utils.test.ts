@@ -1,55 +1,39 @@
-import * as fs from "node:fs";
-import { FullEvent } from '../../src/models/event.model.ts';
+import { FrequencyObject, FullEvent } from '../../src/models/event.model.ts';
 import { testEvents } from '../dummyData/event.samples.ts'
 import { realData } from '../dummyData/realData.samples.ts';
-import { normalizeEventTitle, normalizeEventDate, addNormalizedProperties } from "../../src/utils/event.utils.ts";
-import { Console } from 'node:console';
+import { addNormalizedProperties, createFrequencyArrays, calculateTermFrequency, createEventKey } from "../../src/utils/event.utils.ts";
+import { toNamespacedPath } from 'node:path';
+import test from 'node:test';
+
 
 const testInput = realData;
 
-function testTitleNormalization() {
-  console.log("=== Event Title Normalization Test ===\n");
-  
-  testInput.forEach((event, index) => {
-    console.log(`Event ${index + 1}:`);
-    console.log(`Original: "${event.name}"`);
-    console.log(`Normalized: "${normalizeEventTitle(event)}"`);
-    console.log("");
-  });
-}
-  
-function testDateNormalization() {
-  // Test date normalization
-  console.log("=== Event Date Normalization Test ===\n");
-  
-  testInput.forEach((event, index) => {
-    console.log(`Event ${index + 1}:`);
-    console.log(`Original: "${event.date}"`);
-    console.log(`Normalized: ${normalizeEventDate(event)}`);
-    console.log("");
-  });
-}
+function testAddNormalizedProperties() {
+  let frequencyObject: FrequencyObject = {names: [], allTerms: []};
 
-async function testAddNormalizedProperties() {
-  console.log("=== test final object ===");
+  const eventsV1: FullEvent[] = []
   for (const [index, event] of testInput.entries()) {
     const finalObj = addNormalizedProperties(event);
-    const result = await testSaveData(finalObj);
-    console.log(result.message);
+    eventsV1.push(finalObj);
+    frequencyObject = createFrequencyArrays(finalObj);
   }
+  
+  const TF_IDF_Object = calculateTermFrequency(frequencyObject);
+  const result: FullEvent[] = createEventKey(TF_IDF_Object, eventsV1);
+  
+  
+  testSaveData(result);
 }
 
 let savedData: FullEvent[] = [];
 let rejectedData: FullEvent[] = [];
-async function testSaveData(inputData: FullEvent): Promise<{saved: boolean, message: string}> {
+async function testSaveData(inputData: FullEvent[]): Promise<{saved: FullEvent[], rejected: FullEvent[], message: string}> {
 
   try {
-    // Try to read existing data files, create empty arrays if files don't exist
     try {
       const data = await Deno.readTextFile("database.json");
       savedData = JSON.parse(data);
     } catch (error) {
-      // If file doesn't exist or can't be read, use empty array
       savedData = [];
     }
     
@@ -57,43 +41,57 @@ async function testSaveData(inputData: FullEvent): Promise<{saved: boolean, mess
       const data2 = await Deno.readTextFile("reject.json");
       rejectedData = JSON.parse(data2);
     } catch (error) {
-      // If file doesn't exist or can't be read, use empty array
       rejectedData = [];
     }
+
+    const newSaved: FullEvent[] = [];
+    const newRejected: FullEvent[] = [];
   
-    // Check if the event already exists in the saved data
-    // Comparing by normalized name and date (as strings for accurate comparison)
-    const isDuplicate = savedData.some(event => 
-      event.normalizedName === inputData.normalizedName
+    for (const event of inputData) {
+      const isDuplicate = savedData.some(existingEvent => 
+        existingEvent.eventKey === event.eventKey
+      );
+      
+      if (isDuplicate) {
+        newRejected.push(event);
+        rejectedData.push(event);
+      } else {
+        newSaved.push(event);
+        savedData.push(event);
+      }
+    }
+
+    await Deno.writeTextFile(
+      "database.json",
+      JSON.stringify(savedData, null, 2)
     );
     
-    if (isDuplicate) {
-      console.log(isDuplicate)
-      // Event is a duplicate, add to rejected data
-      rejectedData.push(inputData);
-      await Deno.writeTextFile(
-        "reject.json",
-        JSON.stringify(rejectedData, null, 2)
-      );
-      console.log({ saved: false, message: `Event "${inputData.name}" is a duplicate and was rejected` })
-      return { saved: false, message: `Event "${inputData.name}" is a duplicate and was rejected` };
-    } else {
-      // Event is new, add to saved data
-      savedData.push(inputData);
-      await Deno.writeTextFile(
-        "database.json",
-        JSON.stringify(savedData, null, 2)
-      );
-      console.log({ saved: true, message: `Event "${inputData.name}" was successfully saved` })
-      return { saved: true, message: `Event "${inputData.name}" was successfully saved` };
-    }
+    await Deno.writeTextFile(
+      "reject.json",
+      JSON.stringify(rejectedData, null, 2)
+    );
+
+    console.log({ 
+      saved: newSaved.length, 
+      rejected: newRejected.length, 
+      message: `Processed ${inputData.length} events: ${newSaved.length} saved, ${newRejected.length} rejected` 
+    });
+    
+    return { 
+      saved: newSaved, 
+      rejected: newRejected, 
+      message: `Processed ${inputData.length} events: ${newSaved.length} saved, ${newRejected.length} rejected` 
+    };
   } catch (error) {
-    // Handle any errors that occur during processing
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error(`Error in testSaveData: ${errorMessage}`);
-    return { saved: false, message: `Error processing event: ${errorMessage}` };
+    return { saved: [], rejected: [], message: `Error processing events: ${errorMessage}` };
   }
 }
+
+
+
+
 
 
 testAddNormalizedProperties()
