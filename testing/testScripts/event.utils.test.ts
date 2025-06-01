@@ -1,9 +1,7 @@
 import { FrequencyObject, FullEvent } from '../../src/models/event.model.ts';
-import { testEvents } from '../dummyData/event.samples.ts'
 import { realData } from '../dummyData/realData.samples.ts';
 import { addNormalizedProperties, createFrequencyArrays, calculateTermFrequency, createEventKey } from "../../src/utils/event.utils.ts";
-import { toNamespacedPath } from 'node:path';
-import test from 'node:test';
+//import { testEvents } from '../dummyData/event.samples.ts'
 
 
 const testInput = realData;
@@ -12,7 +10,7 @@ function testAddNormalizedProperties() {
   let frequencyObject: FrequencyObject = {names: [], allTerms: []};
 
   const eventsV1: FullEvent[] = []
-  for (const [index, event] of testInput.entries()) {
+  for (const [, event] of testInput.entries()) {
     const finalObj = addNormalizedProperties(event);
     eventsV1.push(finalObj);
     frequencyObject = createFrequencyArrays(finalObj);
@@ -34,6 +32,7 @@ async function testSaveData(inputData: FullEvent[]): Promise<{saved: FullEvent[]
       const data = await Deno.readTextFile("database.json");
       savedData = JSON.parse(data);
     } catch (error) {
+      console.error(error);
       savedData = [];
     }
     
@@ -41,6 +40,7 @@ async function testSaveData(inputData: FullEvent[]): Promise<{saved: FullEvent[]
       const data2 = await Deno.readTextFile("reject.json");
       rejectedData = JSON.parse(data2);
     } catch (error) {
+      console.error(error);
       rejectedData = [];
     }
 
@@ -89,13 +89,4 @@ async function testSaveData(inputData: FullEvent[]): Promise<{saved: FullEvent[]
   }
 }
 
-
-
-
-
-
 testAddNormalizedProperties()
-
-//testTitleNormalization();
-//testDateNormalization();
-//testAddNormalizedProperties();
