@@ -8,7 +8,7 @@
 
 ### ✅ Checklist
 
-- [ ] Lint passes (`deno lint`)
-- [ ] Code is formatted (`deno fmt`)
-- [ ] No type errors (`deno check main.ts(Replace main with current entry point should it change)`)
-- [ ] Tests added or updated (if applicable)
+- [] Lint passes (`deno lint`)
+- [] Code is formatted (`deno fmt`)
+- [] No type errors (`deno check main.ts(Replace main with current entry point should it change)`)
+- [] Tests added or updated (if applicable)
