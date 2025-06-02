@@ -57,7 +57,7 @@ export const saveEventsCronHandler = async (ctx: Context) => {
   console.log('Daily task triggered');
 
   const events = await generateEvents(
-    ['Music', 'Charity', 'Sports', 'Other'],
+    ['music', 'charity', 'sports', 'other'],
     'Finsbury Park',
   );
 
