@@ -1,9 +1,10 @@
 {
   "tasks": {
-    "dev": "deno run -A --watch src/mod.ts",
+    "dev": "deno run -A --unstable-detect-cjs --watch src/mod.ts",
     "lint": "deno lint",
     "fmt": "deno fmt",
-    "fmt:check": "deno fmt --check"
+    "fmt:check": "deno fmt --check",
+    "event-test": "deno run --allow-read --allow-write testing/testScripts/event.utils.test.ts"
   },
   "imports": {
     "@openai/openai": "jsr:@openai/openai@^4.98.0",
