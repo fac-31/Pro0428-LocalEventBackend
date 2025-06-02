@@ -2,7 +2,7 @@ import { Event } from '../../src/models/event.model.ts';
 
 export const realData: Array<Event> = [
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Event Header',
     'description':
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nec congue eros, scelerisque vestibulum ante.',
@@ -12,7 +12,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.greatevent.com',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Wireless Festival 2025',
     'description':
       'A three-day music festival featuring Drake headlining all three days, with special guests including PARTYNEXTDOOR, Summer Walker, Burna Boy, and Vybz Kartel.',
@@ -22,7 +22,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.timeout.com/london/music/wireless-2',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Fontaines D.C. Live at Finsbury Park',
     'description':
       'An open-air concert featuring Fontaines D.C., Amyl and The Sniffers, and Kneecap.',
@@ -33,7 +33,7 @@ export const realData: Array<Event> = [
       'https://www.chooseyourevent.co.uk/event/293905/finsbury-park-fontaines-d-c-2025',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'PARTYNEXTDOOR and Summer Walker Live',
     'description':
       'A live performance by PARTYNEXTDOOR and Summer Walker as part of the Wireless Festival.',
@@ -44,7 +44,7 @@ export const realData: Array<Event> = [
       'https://allevents.in/london/partynextdoor-summer-walker-in-london/3300027865588400',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Stereophonics Live at Finsbury Park',
     'description': 'A major concert event featuring the Stereophonics.',
     'location': 'Finsbury Park, London',
@@ -54,7 +54,7 @@ export const realData: Array<Event> = [
       'https://www.haringey.gov.uk/leisure-parks-culture/parks-greenspaces/park-events/finsbury-park-large-events/upcoming-large-events-finsbury-park',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Krankbrother Festival',
     'description':
       'A large-scale music festival featuring various artists and genres.',
@@ -65,7 +65,7 @@ export const realData: Array<Event> = [
       'https://www.haringey.gov.uk/leisure-parks-culture/parks-greenspaces/park-events/finsbury-park-large-events/upcoming-large-events-finsbury-park',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': '#FNBY Finsbury Fridays',
     'description':
       'A weekly Friday night party featuring resident DJs spinning the latest hits.',
@@ -77,7 +77,7 @@ export const realData: Array<Event> = [
       'https://www.eventbrite.co.uk/e/fnby-finsbury-fridays-tickets-1115999808469',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Wireless Festival',
     'description':
       'A major music festival featuring top artists across various genres.',
@@ -88,7 +88,7 @@ export const realData: Array<Event> = [
       'https://www.haringey.gov.uk/leisure-parks-culture/parks-greenspaces/park-events/finsbury-park-large-events/upcoming-large-events-finsbury-park',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Stereophonics Live',
     'description': 'Live performance by the renowned band Stereophonics.',
     'location': 'Finsbury Park, London',
@@ -98,7 +98,7 @@ export const realData: Array<Event> = [
       'https://www.haringey.gov.uk/leisure-parks-culture/parks-greenspaces/park-events/finsbury-park-large-events/upcoming-large-events-finsbury-park',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Fontaines D.C. Concert',
     'description': 'Concert by the Irish post-punk band Fontaines D.C.',
     'location': 'Finsbury Park, London',
@@ -108,7 +108,7 @@ export const realData: Array<Event> = [
       'https://www.haringey.gov.uk/leisure-parks-culture/parks-greenspaces/park-events/finsbury-park-large-events/upcoming-large-events-finsbury-park',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Hackney Half Marathon',
     'description': 'A half marathon event supporting various charities.',
     'location': 'Homerton Rd, London E9 5PF',
@@ -117,7 +117,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.crosslightadvice.org/events',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Finsbury Park Half Marathon',
     'description':
       'Half marathon event in Finsbury Park supporting local charities.',
@@ -127,7 +127,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.crosslightadvice.org/events',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Saucony London 10K',
     'description': '10K run through central London supporting various causes.',
     'location': '101 Piccadilly, W1J 7JT',
@@ -136,7 +136,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.crosslightadvice.org/events',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'GEAR 10K',
     'description': "10K run in King's Lynn supporting local charities.",
     'location': "Tuesday Market Place, King's Lynn, PE30 1JJ",
@@ -145,7 +145,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.crosslightadvice.org/events',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'London to Amsterdam Cycle',
     'description':
       'Cycling event from London to Amsterdam supporting various charities.',
@@ -155,7 +155,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.crosslightadvice.org/events',
   },
   {
-    'mode': 'Sports',
+    'mode': 'sports',
     'name': 'Finsbury Park 5K, 10K, Half Marathon',
     'description':
       'Running event offering multiple distances in Finsbury Park.',
@@ -165,7 +165,7 @@ export const realData: Array<Event> = [
     'url': 'https://us.trip.com/events/4600149-2025-finsbury-park-collection/',
   },
   {
-    'mode': 'Sports',
+    'mode': 'sports',
     'name': 'Black Trail Runners Social Run',
     'description': 'Social run event organized by Black Trail Runners.',
     'location': 'Finsbury Park Station, London',
@@ -174,7 +174,7 @@ export const realData: Array<Event> = [
     'url': 'https://us.trip.com/events/4600149-2025-finsbury-park-collection/',
   },
   {
-    'mode': 'Sports',
+    'mode': 'sports',
     'name': 'Royal Parks Half Marathon',
     'description': 'Half marathon through central London and four Royal Parks.',
     'location': 'Hyde Park, London',
@@ -183,7 +183,7 @@ export const realData: Array<Event> = [
     'url': 'https://en.wikipedia.org/wiki/Royal_Parks_Half_Marathon',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Family Fun Fair',
     'description': 'A fun fair event suitable for families.',
     'location': 'Finsbury Park, London',
@@ -193,7 +193,7 @@ export const realData: Array<Event> = [
       'https://www.haringey.gov.uk/leisure-parks-culture/parks-greenspaces/park-events/finsbury-park-large-events/upcoming-large-events-finsbury-park',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': "Zippo's Circus",
     'description': 'A traditional circus event featuring various performances.',
     'location': 'Finsbury Park, London',
@@ -203,7 +203,7 @@ export const realData: Array<Event> = [
       'https://www.haringey.gov.uk/leisure-parks-culture/parks-greenspaces/park-events/finsbury-park-large-events/upcoming-large-events-finsbury-park',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Finsbury Park Comedy Night ft Paul Sinha',
     'description': 'Comedy night featuring Paul Sinha and other comedians.',
     'location': 'The Swimmer at the Grafton Arms, London',
@@ -212,7 +212,7 @@ export const realData: Array<Event> = [
     'url': 'https://us.trip.com/events/4600149-2025-finsbury-park-collection/',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': "GALENTINE'S: Paint & Yap",
     'description': "A painting event celebrating Galentine's Day.",
     'location': 'Finsbury Park Painting Club, London',
@@ -221,16 +221,16 @@ export const realData: Array<Event> = [
     'url': 'https://us.trip.com/events/4600149-2025-finsbury-park-collection/',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Outbreak Festival',
-    'description': 'Music festival featuring various artists.',
+    'description': 'music festival featuring various artists.',
     'location': 'London',
     'date': '2025-06-13T12:00:00.000Z',
     'price': 50,
     'url': 'https://en.wikipedia.org/wiki/Outbreak_Festival',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': "Open Mic Collective at The World's End",
     'description':
       'A community open mic night welcoming all performers and spectators.',
@@ -241,7 +241,7 @@ export const realData: Array<Event> = [
       'https://www.eventbrite.co.uk/e/open-mic-collective-the-worlds-end-finsbury-park-tickets-1252795217219',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Fontaines D.C. Live at Finsbury Park',
     'description':
       'Live performance by Fontaines D.C. with supporting acts Amyl and The Sniffers, Kneecap, and Blondshell.',
@@ -252,7 +252,7 @@ export const realData: Array<Event> = [
       'https://www.chooseyourevent.co.uk/event/293905/finsbury-park-fontaines-d-c-2025',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Wireless Festival 2025',
     'description':
       'Annual music festival featuring artists like Drake, PARTYNEXTDOOR, Summer Walker, Burna Boy, and Boy Better Know.',
@@ -262,7 +262,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.songkick.com/venues/43161-finsbury-park',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Stereophonics Live at Finsbury Park',
     'description':
       'Live performance by Stereophonics with supporting act Blossoms.',
@@ -272,7 +272,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.songkick.com/venues/43161-finsbury-park',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Slayer and Mastodon at Finsbury Park',
     'description':
       'Live performances by Slayer, Mastodon, Anthrax, Amon Amarth, Hatebreed, and Neckbreakker.',
@@ -282,7 +282,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.songkick.com/venues/43161-finsbury-park',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Big Fun Walk 2025',
     'description':
       'A fundraising walk organized by North London Hospice to support hospice services.',
@@ -293,7 +293,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Summer Race The Neighbours 2025',
     'description':
       'A 10K run through East Finchley organized by North London Hospice.',
@@ -303,7 +303,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'North London Hospice X Finsbury Park Running Series 2025',
     'description':
       'A series of running events including 5K, 10K, and Half Marathon to support North London Hospice.',
@@ -314,8 +314,8 @@ export const realData: Array<Event> = [
       'https://northlondonhospice.org/events/north-london-hospice-x-finsbury-park-running-series-2025/',
   },
   {
-    'mode': 'Charity',
-    'name': 'Triffic Trail: Trent Park – Charity of the Year',
+    'mode': 'charity',
+    'name': 'Triffic Trail: Trent Park – charity of the Year',
     'description': 'A trail run event supporting North London Hospice.',
     'location': 'Trent Park, London, UK',
     'date': '2025-06-22T00:00:00.000Z',
@@ -323,7 +323,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Skydive Day 2025',
     'description':
       'A fundraising skydive event organized by North London Hospice.',
@@ -333,7 +333,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Sports',
+    'mode': 'sports',
     'name': 'Royal Parks Half Marathon 2025',
     'description':
       "A half marathon through four of London's Royal Parks supporting North London Hospice.",
@@ -343,7 +343,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Sports',
+    'mode': 'sports',
     'name': 'Bath Half 2026',
     'description': 'A half marathon event supporting North London Hospice.',
     'location': 'Bath, UK',
@@ -352,7 +352,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Museum of Homelessness Open Season',
     'description':
       'An exhibition featuring untold stories from the national collection for homelessness.',
@@ -364,7 +364,7 @@ export const realData: Array<Event> = [
       'https://alexandraparkneighbours.org.uk/newevents/list/on/2025-05-07',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': "Illustrating Children's Books Course for Adults",
     'description':
       "A 10-lesson course teaching the steps to illustrate children's books.",
@@ -375,7 +375,7 @@ export const realData: Array<Event> = [
       'https://alexandraparkneighbours.org.uk/newevents/list/on/2025-05-07',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Gi Fundamentals Course (BJJ Brazilian Jiu Jitsu)',
     'description': 'A course on Brazilian Jiu Jitsu fundamentals.',
     'location': 'Alexandra Park School, London, UK',
@@ -385,7 +385,7 @@ export const realData: Array<Event> = [
       'https://alexandraparkneighbours.org.uk/newevents/list/on/2025-05-07',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Geekstraveganza – Boardgame Meetup',
     'description': 'Regular board game meetup sessions.',
     'location': 'Karamel, 4 Coburg Road, Wood Green, London, UK',
@@ -395,7 +395,7 @@ export const realData: Array<Event> = [
       'https://alexandraparkneighbours.org.uk/newevents/list/on/2025-05-27',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Crouch End Festival 2025',
     'description':
       'A community arts festival featuring art exhibitions, drama, dance, film, poetry, and music.',
@@ -405,7 +405,7 @@ export const realData: Array<Event> = [
     'url': 'https://en.wikipedia.org/wiki/Crouch_End',
   },
   {
-    'mode': 'Sports',
+    'mode': 'sports',
     'name': 'National League Play-Off Final',
     'description': 'The Final to see who goes up to league two',
     'location': 'Wembley, London',
@@ -414,7 +414,7 @@ export const realData: Array<Event> = [
     'url': 'No one cares this much',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': "Open Mic Collective @ The World's End",
     'description':
       'A community open mic night welcoming all performance types, including music, dance, poetry, and more.',
@@ -425,7 +425,7 @@ export const realData: Array<Event> = [
       'https://www.eventbrite.co.uk/e/open-mic-collective-the-worlds-end-finsbury-park-tickets-1252795217219',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Outbreak Festival 2025',
     'description':
       'A music festival featuring artists like Turnstile, Alex G, and Danny Brown.',
@@ -435,7 +435,7 @@ export const realData: Array<Event> = [
     'url': 'https://en.wikipedia.org/wiki/Outbreak_Festival',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Fontaines D.C. 2025',
     'description':
       'A live performance by Fontaines D.C. with supporting acts Amyl and The Sniffers, Kneecap, and Blondshell.',
@@ -446,7 +446,7 @@ export const realData: Array<Event> = [
       'https://www.chooseyourevent.co.uk/event/293905/finsbury-park-fontaines-d-c-2025',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Wireless Festival 2025',
     'description':
       'A three-day music festival featuring artists like Drake, PARTYNEXTDOOR, Summer Walker, and Burna Boy.',
@@ -456,7 +456,7 @@ export const realData: Array<Event> = [
     'url': 'https://en.wikipedia.org/wiki/Wireless_Festival',
   },
   {
-    'mode': 'Music',
+    'mode': 'music',
     'name': 'Stereophonics and Blossoms Live',
     'description': 'A live concert featuring Stereophonics and Blossoms.',
     'location': 'Finsbury Park, Seven Sisters Road, London N4 2DH',
@@ -465,7 +465,7 @@ export const realData: Array<Event> = [
     'url': 'https://www.songkick.com/venues/43161-finsbury-park',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Big Fun Walk 2025',
     'description':
       'A fundraising walk organized by North London Hospice to support hospice services.',
@@ -476,7 +476,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Summer Race The Neighbours 2025',
     'description':
       'A 10K run through East Finchley organized by North London Hospice.',
@@ -486,7 +486,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'North London Hospice X Finsbury Park Running Series 2025',
     'description':
       'A series of running events including 5K, 10K, and Half Marathon to support North London Hospice.',
@@ -497,8 +497,8 @@ export const realData: Array<Event> = [
       'https://northlondonhospice.org/events/north-london-hospice-x-finsbury-park-running-series-2025/',
   },
   {
-    'mode': 'Charity',
-    'name': 'Triffic Trail: Trent Park – Charity of the Year',
+    'mode': 'charity',
+    'name': 'Triffic Trail: Trent Park – charity of the Year',
     'description': 'A trail run event supporting North London Hospice.',
     'location': 'Trent Park, London',
     'date': '2025-06-22T00:00:00.000Z',
@@ -506,7 +506,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Charity',
+    'mode': 'charity',
     'name': 'Skydive Day 2025',
     'description':
       'A fundraising skydive event organized by North London Hospice.',
@@ -516,7 +516,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Sports',
+    'mode': 'sports',
     'name': 'Royal Parks Half Marathon 2025',
     'description':
       "A half marathon through four of London's Royal Parks supporting North London Hospice.",
@@ -526,7 +526,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Sports',
+    'mode': 'sports',
     'name': 'Kilimanjaro Trek',
     'description':
       'A fundraising trek to the summit of Kilimanjaro organized by North London Hospice.',
@@ -536,7 +536,7 @@ export const realData: Array<Event> = [
     'url': 'https://northlondonhospice.org/support-us/our-fundraising-events/',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Museum of Homelessness Open Season',
     'description':
       'An exhibition featuring untold stories from the national collection for homelessness.',
@@ -548,7 +548,7 @@ export const realData: Array<Event> = [
       'https://alexandraparkneighbours.org.uk/newevents/list/on/2025-05-29',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Gi Fundamentals Course (BJJ Brazilian Jiu Jitsu)',
     'description': 'A Brazilian Jiu Jitsu fundamentals course.',
     'location': 'Alexandra Park School, London',
@@ -558,7 +558,7 @@ export const realData: Array<Event> = [
       'https://alexandraparkneighbours.org.uk/newevents/list/on/2025-05-07',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Geekstraveganza – Boardgame Meetup',
     'description': 'A regular board game meetup.',
     'location': 'Karamel, 4 Coburg Road, Wood Green, London',
@@ -568,7 +568,7 @@ export const realData: Array<Event> = [
       'https://alexandraparkneighbours.org.uk/newevents/list/on/2025-05-27',
   },
   {
-    'mode': 'Other',
+    'mode': 'other',
     'name': 'Crouch End Festival 2025',
     'description':
       'A community arts festival featuring art exhibitions, drama, dance, film, poetry, and music.',
