@@ -9,6 +9,7 @@ import { db } from '../database/connect.ts';
 import {
   CompleteEventType,
   Event,
+  EventFilter,
   eventsArraySchema,
   eventSchema,
   FullEvent,
@@ -16,10 +17,15 @@ import {
 import { normaliseEvents } from '../utils/event.utils.ts';
 
 const events = db.collection<FullEvent>('events');
-//console.log(events);
 
-const getAllEvents = async (): Promise<FullEvent[]> => {
-  return await events.find().toArray();
+const getAllEvents = async (filter: EventFilter): Promise<FullEvent[]> => {
+  const mongoFilter: Record<string, unknown> = {};
+
+  if (filter.mode && filter.mode.length > 0) {
+    mongoFilter.mode = { $in: filter.mode };
+  }
+
+  return await events.find(mongoFilter).toArray();
 };
 
 const getEventById = async (id: string): Promise<FullEvent | null> => {

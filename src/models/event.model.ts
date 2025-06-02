@@ -40,4 +40,10 @@ export type FrequencyObject = {
   allTerms: string[];
 };
 
+export const eventFilterSchema = z.object({
+  mode: z.array(eventModeEnum).optional(),
+});
+
 export type CompleteEventType = z.infer<typeof eventsArraySchema>;
+
+export type EventFilter = z.infer<typeof eventFilterSchema>;
