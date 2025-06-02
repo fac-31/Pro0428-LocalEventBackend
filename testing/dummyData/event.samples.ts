@@ -3,7 +3,7 @@ import { Event } from '../../src/models/event.model.ts';
 // Test event examples
 export const testEvents: Event[] = [
   {
-    mode: 'Music',
+    mode: 'music',
     name: 'Finsbury Park Festival 2025',
     description: 'Annual music festival in the park',
     location: 'Finsbury Park',
@@ -12,16 +12,16 @@ export const testEvents: Event[] = [
     url: 'https://example.com/festival',
   },
   {
-    mode: 'Music',
+    mode: 'music',
     name: 'Finsbury Park Festival',
-    description: 'Music festival in the park',
+    description: 'music festival in the park',
     location: 'Finsbury Park',
     date: '2025-06-15T19:00:00.000Z',
     price: 25,
     url: 'https://example.com/festival',
   },
   {
-    mode: 'Music',
+    mode: 'music',
     name: 'FINSBURY PARK FESTIVAL - 2025 Edition',
     description: 'The biggest festival in Finsbury Park',
     location: 'Finsbury Park',
@@ -30,7 +30,7 @@ export const testEvents: Event[] = [
     url: 'https://example.com/festival',
   },
   {
-    mode: 'Music',
+    mode: 'music',
     name: 'Jazz in the Park - June 15th',
     description: 'Jazz concert in the park',
     location: 'Finsbury Park',
@@ -39,7 +39,7 @@ export const testEvents: Event[] = [
     url: 'https://example.com/jazz',
   },
   {
-    mode: 'Sports',
+    mode: 'sports',
     name: 'Finsbury Marathon 2025',
     description: 'Annual marathon through Finsbury',
     location: 'Finsbury Park',
