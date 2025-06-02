@@ -1,6 +1,6 @@
 import { z } from '../../deps.ts';
 
-const eventModeEnum = z.enum(['Music', 'Charity', 'Sports', 'Other']);
+const eventModeEnum = z.enum(['music', 'charity', 'sports', 'other']);
 
 export type EventMode = z.infer<typeof eventModeEnum>;
 
