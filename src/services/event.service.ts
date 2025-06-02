@@ -15,14 +15,14 @@ import {
 } from '../models/event.model.ts';
 import { normaliseEvents } from '../utils/event.utils.ts';
 
-const events = db.collection<Event>('events');
+const events = db.collection<FullEvent>('events');
 //console.log(events);
 
-const getAllEvents = async (): Promise<Event[]> => {
+const getAllEvents = async (): Promise<FullEvent[]> => {
   return await events.find().toArray();
 };
 
-const getEventById = async (id: string): Promise<Event | null> => {
+const getEventById = async (id: string): Promise<FullEvent | null> => {
   return await events.findOne({ _id: new ObjectId(id) });
 };
 
@@ -54,7 +54,7 @@ const saveEvents = async (input: Event | CompleteEventType) => {
     for (const event of normalisedEvents) {
       try {
         if (!(await databaseIncludes(event))) {
-          //await events.insertOne(event);
+          await events.insertOne(event);
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -70,7 +70,7 @@ const saveEvents = async (input: Event | CompleteEventType) => {
     const normalisedEvent = normaliseEvents([input]);
     try {
       if (!(await databaseIncludes(normalisedEvent[0]))) {
-        //await events.insertOne(normalisedEvent[0]);
+        await events.insertOne(normalisedEvent[0]);
       }
     } catch (error) {
       if (error instanceof Error) {
