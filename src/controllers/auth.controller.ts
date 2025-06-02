@@ -1,6 +1,6 @@
 // deno-lint-ignore-file require-await
 import { Context, RouterContext, Status } from '../../deps.ts';
-import { UserLogInSchema, UserSignUpSchema } from '../models/user.model.ts';
+import { UserLogInSchema, UserSignUpSchema } from 'models/user.model.ts';
 import { authService } from '../services/auth.service.ts';
 
 export const getCurrentUser = async (ctx: Context) => {

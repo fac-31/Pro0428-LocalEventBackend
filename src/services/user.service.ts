@@ -5,9 +5,9 @@
 
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 import { db } from '../database/connect.ts';
-import { UserInDB } from '../models/user.model.ts';
+import { UserInDB } from 'models/user.model.ts';
 import { hash, OptionalId } from '../../deps.ts';
-import { NewUser } from '../models/user.model.ts';
+import { NewUser } from 'models/user.model.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
 
