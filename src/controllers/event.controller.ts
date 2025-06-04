@@ -20,7 +20,6 @@ export const getAllEvents = async (ctx: Context) => {
 
   let allEvents;
   if (parseResult.success) {
-    console.log(parseResult.data);
     allEvents = await eventService.getAllEvents(parseResult.data);
   } else {
     ctx.response.status = Status.BadRequest;

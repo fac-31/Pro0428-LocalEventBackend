@@ -3,6 +3,7 @@ import {
   getCurrentUser,
   loginUser,
   signUpUser,
+  requestPasswordReset,
 } from '../controllers/auth.controller.ts';
 import ProtectRoute from '../middleware/protectRoute.ts';
 
@@ -12,6 +13,6 @@ const router = new Router();
 router.get('/me', ProtectRoute, getCurrentUser);
 router.post('/signup', signUpUser);
 router.post('/login', loginUser);
-// router.post("/logout", logoutUser)
+router.post('/request-password-reset', requestPasswordReset);
 
 export default router;

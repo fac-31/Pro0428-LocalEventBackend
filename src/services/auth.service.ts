@@ -9,6 +9,7 @@ import {
 import { compare, hash } from '../../deps.ts';
 import { generateToken } from '../utils/token.utils.ts';
 import type { OptionalId } from '../../deps.ts';
+import { emailService } from './email.service.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
 
@@ -39,9 +40,10 @@ const createUser = async (userInput: UserSignUpInput) => {
 
 const logInUser = async (userInput: UserLogInInput) => {
   const exists = await users.findOne({ username: userInput.username });
-  const validPassword = exists === null
-    ? false
-    : await compare(userInput.password, exists.password);
+  const validPassword =
+    exists === null
+      ? false
+      : await compare(userInput.password, exists.password);
   if (!(exists && validPassword)) {
     throw new Error('Invalid username or password');
   }
@@ -50,7 +52,21 @@ const logInUser = async (userInput: UserLogInInput) => {
   return token;
 };
 
+const handlePasswordResetRequest = async (email: string) => {
+  const user = await users.findOne({ email });
+  if (!user) return; // This is a silent fail for security reasons
+  const token = await generateToken({
+    sub: user._id.toString(),
+    exp: 60 * 15,
+  });
+
+  const restLink = `http://localhost:5173/reset-password?token=${token}`;
+
+  await emailService.sendResetPassword(email, restLink);
+};
+
 export const authService = {
   createUser,
   logInUser,
+  handlePasswordResetRequest,
 };
