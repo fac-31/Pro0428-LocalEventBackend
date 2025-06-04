@@ -14,9 +14,6 @@ export type {
 export { OpenAI } from '@openai/openai';
 export { zodTextFormat } from '@openai/openai/helpers/zod';
 
-// Zod - NPM - This works best with the AI SDK. Other's cause versioning issues.
-export { z } from 'npm:zod';
-
 // CORS - URL
 export { oakCors } from 'https://deno.land/x/cors@v1.2.2/mod.ts';
 

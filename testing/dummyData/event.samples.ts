@@ -1,4 +1,4 @@
-import { Event } from '../../src/models/event.model.ts';
+import { Event } from 'models/event.model.ts';
 
 // Test event examples
 export const testEvents: Event[] = [
