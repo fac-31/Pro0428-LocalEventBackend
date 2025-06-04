@@ -9,7 +9,6 @@ if (!EMAIL_SENDER) {
 if (!EMAIL_PASSWORD) {
   throw new Error('Missing required environment variable: EMAIL_PASSWORD');
 }
-
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -29,14 +28,21 @@ const sendResetPassword = async (to: string, link: string) => {
     </div>
   `;
 
-  const info = await transporter.sendMail({
-    from: `The Locals" <${EMAIL_SENDER}>`,
-    to,
-    subject: 'Reset your password',
-    html,
-  });
+  try {
+    const info = await transporter.sendMail({
+      from: `"The Locals" <${EMAIL_SENDER}>`,
+      to,
+      subject: 'Reset your password',
+      html,
+    });
 
-  console.log('Message sent:', info.messageId);
+    console.log('✅ Message sent:', info.messageId);
+    console.log('✅ Accepted:', info.accepted);
+    console.log('❌ Rejected:', info.rejected);
+  } catch (error) {
+    if (error instanceof Error)
+      console.error('❌ Failed to send email:', error.message);
+  }
 };
 
 export const emailService = { sendResetPassword };

@@ -16,7 +16,6 @@
     "npm:mongodb@*": "6.1.0",
     "npm:mongodb@6.1.0": "6.1.0",
     "npm:nodemailer@*": "7.0.3",
-    "npm:nodemailer@^7.0.3": "7.0.3",
     "npm:path-to-regexp@^6.3.0": "6.3.0",
     "npm:zod@*": "3.24.4",
     "npm:zod@3": "3.24.4"
@@ -236,11 +235,6 @@
       "jsr:@openai/openai@^4.98.0",
       "npm:mongodb@*",
       "npm:zod@*"
-    ],
-    "packageJson": {
-      "dependencies": [
-        "npm:nodemailer@^7.0.3"
-      ]
-    }
+    ]
   }
 }
