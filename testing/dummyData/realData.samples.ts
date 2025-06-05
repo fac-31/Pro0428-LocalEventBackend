@@ -1,4 +1,4 @@
-import { Event } from '../../src/models/event.model.ts';
+import { Event } from 'models/event.model.ts';
 
 export const realData: Array<Event> = [
   {

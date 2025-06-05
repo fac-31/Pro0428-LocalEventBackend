@@ -1,4 +1,4 @@
-import { FrequencyObject, FullEvent } from '../../src/models/event.model.ts';
+import { FrequencyObject, FullEvent } from 'models/event.model.ts';
 import { realData } from '../dummyData/realData.samples.ts';
 import {
   addNormalizedProperties,

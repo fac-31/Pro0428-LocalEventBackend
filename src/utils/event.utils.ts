@@ -1,4 +1,4 @@
-import { Event, FrequencyObject, FullEvent } from '../models/event.model.ts';
+import { Event, FrequencyObject, FullEvent } from 'models/event.model.ts';
 
 // Initial cleaning of titles
 export const normalizeEventTitle = (event: Event): string => {
