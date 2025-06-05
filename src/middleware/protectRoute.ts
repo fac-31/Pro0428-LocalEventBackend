@@ -19,7 +19,6 @@ const ProtectRoute = async (ctx: Context, next: Next) => {
       return;
     }
     ctx.state.user = payload;
-    console.log(payload);
     await next();
   } catch (error) {
     if (error instanceof Error) {
