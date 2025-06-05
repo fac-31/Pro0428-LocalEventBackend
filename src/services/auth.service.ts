@@ -53,16 +53,12 @@ const logInUser = async (userInput: UserLogInInput) => {
 };
 
 const handlePasswordResetRequest = async (email: string) => {
-  const user = await users.findOne({ email });
-  if (!user) return; // This is a silent fail for security reasons
-  const token = await generateToken({
-    sub: user._id.toString(),
-    exp: 60 * 15,
-  });
-
-  const restLink = `http://localhost:5173/reset-password?token=${token}`;
-
-  await emailService.sendResetPassword(email, restLink);
+  const exists = await users.findOne({ email });
+  if (!exists) return; // This is a silent fail for security reasons
+  const safeUser = toSafeUser(exists);
+  const token = await generateToken(safeUser);
+  const magicLink = `http://localhost:5173/reset-password?token=${token}`;
+  await emailService.sendMagicLink(email, magicLink);
 };
 
 export const authService = {

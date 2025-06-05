@@ -45,4 +45,4 @@ const sendResetPassword = async (to: string, link: string) => {
   }
 };
 
-export const emailService = { sendResetPassword };
+export const emailService = { sendMagicLink: sendResetPassword };

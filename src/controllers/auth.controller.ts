@@ -86,3 +86,8 @@ export const requestPasswordReset = async (
     message: 'If your email exists, a reset link will be sent shortly.',
   };
 };
+
+export const resetPassword = async (ctx: RouterContext<'/reset-password'>) => {
+  const body = await ctx.request.body.json();
+  console.log(body);
+};
