@@ -9,6 +9,7 @@ export const testEvents: Event[] = [
     location: 'Finsbury Park',
     date: '2025-06-15T19:00:00.000Z',
     price: 25,
+    distance: 10,
     url: 'https://example.com/festival',
   },
   {
@@ -18,6 +19,7 @@ export const testEvents: Event[] = [
     location: 'Finsbury Park',
     date: '2025-06-15T19:00:00.000Z',
     price: 25,
+    distance: 10,
     url: 'https://example.com/festival',
   },
   {
@@ -27,6 +29,7 @@ export const testEvents: Event[] = [
     location: 'Finsbury Park',
     date: '2025-06-15T19:00:00.000Z',
     price: 25,
+    distance: 10,
     url: 'https://example.com/festival',
   },
   {
@@ -36,6 +39,7 @@ export const testEvents: Event[] = [
     location: 'Finsbury Park',
     date: '2025-06-15T19:00:00.000Z',
     price: 15,
+    distance: 10,
     url: 'https://example.com/jazz',
   },
   {
@@ -45,6 +49,7 @@ export const testEvents: Event[] = [
     location: 'Finsbury Park',
     date: '2025-07-10T08:00:00.000Z',
     price: 30,
+    distance: 10,
     url: 'https://example.com/marathon',
   },
 ];

@@ -11,6 +11,7 @@ export const eventSchema = z.object({
   location: z.string(),
   date: z.string(),
   price: z.number(),
+  distance: z.number(),
   url: z.string(),
 });
 
