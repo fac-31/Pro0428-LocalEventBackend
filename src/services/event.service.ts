@@ -13,7 +13,7 @@ import {
   eventsArraySchema,
   eventSchema,
   FullEvent,
-} from '../models/event.model.ts';
+} from 'models/event.model.ts';
 import { normaliseEvents } from '../utils/event.utils.ts';
 
 const events = db.collection<FullEvent>('events');

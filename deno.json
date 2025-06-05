@@ -7,8 +7,10 @@
     "event-test": "deno run --allow-read --allow-write testing/testScripts/event.utils.test.ts"
   },
   "imports": {
-    "@openai/openai": "jsr:@openai/openai@^4.98.0",
-    "@std/assert": "jsr:@std/assert@1"
+    "models/": "./shared/src/models/",
+    "mongodb": "npm:mongodb",
+    "zod": "npm:zod",
+    "@openai/openai": "jsr:@openai/openai@^4.98.0"
   },
   "nodeModulesDir": "auto",
   "lint": {
@@ -19,7 +21,7 @@
     }
   },
   "fmt": {
-    "exclude": ["./node_modules"],
+    "exclude": ["./node_modules", "./shared"],
     "useTabs": false,
     "lineWidth": 80,
     "indentWidth": 2,
