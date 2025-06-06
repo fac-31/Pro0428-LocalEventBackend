@@ -37,8 +37,13 @@ export const updateCurrentUser = async (ctx: RouterContext<'/me'>) => {
   }
   try {
     const updatedUser = await authService.updateUser(user._id, userUpdate.data);
+    const refreshedUserToken = await authService.refreshUserToken(user._id);
     ctx.response.status = Status.OK;
-    ctx.response.body = updatedUser;
+    ctx.response.body = {
+      message: 'User updated successfully',
+      user: updatedUser,
+      token: refreshedUserToken,
+    };
   } catch (error) {
     if (error instanceof Error) {
       console.error(error);
