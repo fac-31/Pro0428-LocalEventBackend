@@ -1,10 +1,7 @@
 PUT http://localhost:3000/auth/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODQyMGRiZGM3YjAyMmQyNzcyMWRlNjMiLCJlbWFpbCI6ImFzZGZhc2RmOTlAZ21haWwuY29tIiwidXNlcm5hbWUiOiJ1c2VybmFtZTk5Iiwic2F2ZWRfZXZlbnRzIjpbXSwicm9sZSI6InVzZXIifQ.P6_t4aHZXdlcV_h0IvPi2d9Eq9BNBdqOswG9Ux5uFqQ
+Authorization: Bearer token-go-here
 
 {
-  "email": "onetwothree@gmail.co",
-  "password": "onetwothreeeee",
-  "username": "username99",
-  "first_name": "one"
+  "password": "newpassword"
 }
