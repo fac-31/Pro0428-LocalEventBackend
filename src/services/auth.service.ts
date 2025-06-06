@@ -40,17 +40,42 @@ const createUser = async (userInput: UserSignUpInput) => {
 
 const updateUser = async (id: string | ObjectId, updates: UserUpdateSchema) => {
   const objectId = typeof id === 'string' ? new ObjectId(id) : id;
+  const orConditions = [];
 
-  const user = await users.findOne({ _id: objectId });
-  console.log('Found user:', user);
+  if (updates.email) {
+    orConditions.push({ email: updates.email });
+  }
 
-  const { matchedCount } = await users.updateOne(
+  if (updates.username) {
+    orConditions.push({ username: updates.username });
+  }
+
+  if (orConditions.length > 0) {
+    const conflict = await users.findOne({
+      _id: { $ne: objectId },
+      $or: orConditions,
+    });
+
+    if (conflict) {
+      if (conflict.email === updates.email) {
+        throw new Error('Email already in use');
+      }
+      if (conflict.username === updates.username) {
+        throw new Error('Username already in use');
+      }
+    }
+  }
+
+  const { matchedCount, modifiedCount } = await users.updateOne(
     { _id: objectId },
     { $set: updates }
   );
-
+  console.log(`found ${matchedCount} match and made ${modifiedCount} changes.`);
   if (matchedCount === 0) throw new Error('User not found');
-  return await users.findOne({ _id: objectId });
+  const updated = await users.findOne({ _id: objectId });
+  if (!updated) throw new Error('Something went wrong');
+  const safeUpdated = toSafeUser(updated);
+  return safeUpdated;
 };
 
 const logInUser = async (userInput: UserLogInInput) => {
@@ -67,8 +92,17 @@ const logInUser = async (userInput: UserLogInInput) => {
   return token;
 };
 
+const refreshUserToken = async (id: string | ObjectId) => {
+  const objectId = typeof id === 'string' ? new ObjectId(id) : id;
+  const user = await users.findOne({ _id: objectId });
+  if (!user) throw new Error('User not found');
+  const safeUser = toSafeUser(user);
+  return await generateToken(safeUser);
+};
+
 export const authService = {
   createUser,
   updateUser,
   logInUser,
+  refreshUserToken,
 };
