@@ -1,8 +1,8 @@
-POST http://localhost:3000/auth/signup
+POST https://the-locals.deno.dev/auth/signup
 Content-Type: application/json
 
 {
-  "email": "Dkjdhsbfjewrbk@gmail.com",
-  "password": "securePassword123",
-  "username": "Donald-kjhsdbvcck"
+  "email": "Dkjdhsbfjebk@gmail.com",
+  "password": "securePasswod123",
+  "username": "Donald-kjhsdbck"
 }
