@@ -32,8 +32,12 @@ const getEventById = async (id: string): Promise<FullEvent | null> => {
   return await events.findOne({ _id: new ObjectId(id) });
 };
 
-const updateEventById = async (id: string, event: FullEvent): Promise<FullEvent | null> => {
+const updateEventById = async (id: string, event: FullEvent) => {
   return await events.updateOne({ _id: new ObjectId(id) }, { $set: event });
+};
+
+const deleteEventById = async (id: string) => {
+  return await events.deleteOne({ _id: new ObjectId(id) });
 };
 
 const databaseIncludes = async (event: FullEvent): Promise<boolean> => {
@@ -98,6 +102,7 @@ export const eventService = {
   getAllEvents,
   getEventById,
   updateEventById,
+  deleteEventById,
   saveEvents,
   isEvent,
 };

@@ -91,8 +91,31 @@ export const updateEventById = async (ctx: Context) => {
 };
 
 export const deleteEventById = async (ctx: Context) => {
-  // TODO: Delete event from DB
-  ctx.response.body = { message: `Delete event params.id` };
+  const user = ctx.state.user;
+
+  if (!user) {
+    ctx.response.status = Status.Unauthorized;
+    ctx.response.body = { message: 'User not authenticated' };
+    return;
+  }
+
+  const id: string = ctx.params.id;
+
+  if (!ObjectId.isValid(id)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Invalid event id "${id}"`;
+    return;
+  }
+
+  const result = await eventService.deleteEventById(id);
+
+  if (result.deletedCount == 0) {
+    ctx.response.status = Status.NotFound;
+    ctx.response.body = `Could not find event id "${id}"`;
+    return;
+  }
+
+  ctx.response.body = { message: `Successfully deleted event id "${id}"` };
 };
 
 export const saveNewEvent = async (ctx: Context) => {
