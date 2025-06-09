@@ -1,0 +1,14 @@
+PUT http://localhost:3000/events/683f38cbecb0f8e7404c76a1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODNkODY0YzQ5YmI1MDYxNTM3YjA1NTMiLCJuYW1lX2ZpcnN0IjoiQm9iIiwibmFtZV9sYXN0IjoiQnVpbGRlciIsImVtYWlsIjoiYm9iQGJ1aWxkZXIuY29tIiwidXNlcm5hbWUiOiJib2IiLCJzYXZlZF9ldmVudHMiOltdLCJyb2xlIjoidXNlciJ9.8f-bElJ6461QVgMFeA0rE72ionI5iuB7JOLrsa159fQ
+
+{
+    "mode": "other",
+    "name": "Something",
+    "description": "For something",
+    "location": "Earth",
+    "date": "Tomorrow",
+    "price": 42,
+    "distance": 0,
+    "url": "http://localhost:3000"
+}
