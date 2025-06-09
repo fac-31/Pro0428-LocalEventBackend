@@ -7,7 +7,7 @@ import logRequest from './middleware/logRequest.ts';
 const app = new Application();
 
 app.use(
-  oakCors({ origin: ['http://localhost:5173', 'http://127.0.0.1:5173'] }),
+  oakCors({ origin: ['https://the-locals.netlify.app/'] }),
 ); // Allow local frontend to bypass cors requirement
 app.use(logRequest);
 app.use(router.routes());
