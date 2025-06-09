@@ -1,0 +1,7 @@
+PUT http://localhost:3000/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODQ2YzE1MDQ0NDg5MzBlYmVkODUzMjgiLCJlbWFpbCI6Im9sMjM0ZHVzZXJAZ21haWwuY29tIiwidXNlcm5hbWUiOiJvbGR1c2VyMTIzIiwic2F2ZWRfZXZlbnRzIjpbXSwicm9sZSI6InVzZXIifQ.yMzH6ZXqm88xIGvsaqgJjAkJFUcqpbqs8A9igaEsCjY
+
+{
+  "username": "different"
+}

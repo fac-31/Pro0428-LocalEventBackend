@@ -1,6 +1,11 @@
 // deno-lint-ignore-file require-await
 import { Context, RouterContext, Status } from '../../deps.ts';
-import { UserLogInSchema, UserSignUpSchema } from 'models/user.model.ts';
+import {
+  UserInDB,
+  UserLogInSchema,
+  UserSignUpSchema,
+  UserUpdateSchema,
+} from 'models/user.model.ts';
 import { authService } from '../services/auth.service.ts';
 
 export const getCurrentUser = async (ctx: Context) => {
@@ -15,6 +20,38 @@ export const getCurrentUser = async (ctx: Context) => {
     message: `Hello, ${user.username}!`,
     user,
   };
+};
+
+export const updateCurrentUser = async (ctx: RouterContext<'/me'>) => {
+  const body = await ctx.request.body.json();
+  const userUpdate = UserUpdateSchema.safeParse(body);
+  const user: UserInDB = ctx.state.user;
+  if (!user) {
+    ctx.response.status = Status.Unauthorized;
+    ctx.response.body = { message: 'User not authenticated' };
+    return;
+  }
+  if (!userUpdate.success) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = { errors: userUpdate.error.flatten() };
+    return;
+  }
+  try {
+    const updatedUser = await authService.updateUser(user._id, userUpdate.data);
+    const refreshedUserToken = await authService.refreshUserToken(user._id);
+    ctx.response.status = Status.OK;
+    ctx.response.body = {
+      message: 'User updated successfully',
+      user: updatedUser,
+      token: refreshedUserToken,
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error);
+      ctx.response.status = Status.InternalServerError;
+      ctx.response.body = { error: error.message };
+    }
+  }
 };
 
 export const signUpUser = async (ctx: RouterContext<'/signup'>) => {
