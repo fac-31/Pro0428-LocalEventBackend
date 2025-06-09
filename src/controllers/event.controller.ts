@@ -2,7 +2,7 @@
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 import { generateEvents } from '../services/openai.service.ts';
-import { eventFilterSchema } from 'models/event.model.ts';
+import { eventFilterSchema } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts";
 
 export const getAllEvents = async (ctx: Context) => {
   const params = ctx.request.url.searchParams;
