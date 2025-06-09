@@ -224,7 +224,10 @@
     "https://deno.land/x/zod@v3.24.4/locales/en.ts": "a7a25cd23563ccb5e0eed214d9b31846305ddbcdb9c5c8f508b108943366ab4c",
     "https://deno.land/x/zod@v3.24.4/mod.ts": "ec6e2b1255c1a350b80188f97bd0a6bac45801bb46fc48f50b9763aa66046039",
     "https://deno.land/x/zod@v3.24.4/standard-schema.ts": "4abb2e7bd784fb95d219584673971bb317e74fb4fd0c74c196b558ba46df4456",
-    "https://deno.land/x/zod@v3.24.4/types.ts": "cfdd77407d4b06e79bd63e9cfdb6091489aeb5f432d03a68c0531c1965d001fb"
+    "https://deno.land/x/zod@v3.24.4/types.ts": "cfdd77407d4b06e79bd63e9cfdb6091489aeb5f432d03a68c0531c1965d001fb",
+    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/deps.ts": "fdb5c487e374fb289d37836f0c89ce1f1d0a56c131e01c10cb797aec1e5a8f7f",
+    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts": "ef793ba4fe8a964fbddbeb9b38440810db0ccbd257afbde9592ba336ec3eafc7",
+    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts": "1e863d6b3803d775c5784e3dfd9d8374c379f46c5d66e64c5c442bd10effacd4"
   },
   "workspace": {
     "dependencies": [

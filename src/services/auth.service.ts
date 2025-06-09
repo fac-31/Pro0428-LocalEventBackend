@@ -5,7 +5,7 @@ import {
   UserInDB,
   UserLogInInput,
   UserSignUpInput,
-} from 'models/user.model.ts';
+} from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts";
 import { compare, hash } from '../../deps.ts';
 import { generateToken } from '../utils/token.utils.ts';
 import type { OptionalId } from '../../deps.ts';

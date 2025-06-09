@@ -1,4 +1,4 @@
-import { FrequencyObject, FullEvent } from 'models/event.model.ts';
+import { FrequencyObject, FullEvent } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts";
 import { realData } from '../dummyData/realData.samples.ts';
 import {
   addNormalizedProperties,
