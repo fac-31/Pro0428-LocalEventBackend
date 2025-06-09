@@ -2,7 +2,7 @@
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 import { generateEvents } from '../services/openai.service.ts';
-import { eventFilterSchema } from 'models/event.model.ts';
+import { eventSchema, eventFilterSchema } from 'models/event.model.ts';
 
 export const getAllEvents = async (ctx: Context) => {
   const params = ctx.request.url.searchParams;
@@ -55,6 +55,46 @@ export const getEventById = async (ctx: RouterContext<'/:id'>) => {
   ctx.response.body = event;
 };
 
+export const updateEventById = async (ctx: Context) => {
+  const user = ctx.state.user;
+
+  if (!user) {
+    ctx.response.status = Status.Unauthorized;
+    ctx.response.body = { message: 'User not authenticated' };
+    return;
+  }
+
+  const id: string = ctx.params.id;
+  const event = await ctx.request.body.json();
+
+  if (!ObjectId.isValid(id)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Invalid event id "${id}"`;
+    return;
+  }
+
+  if (!eventService.isEvent(event)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Failed to validate event body`;
+    return;
+  }
+
+  const result = await eventService.updateEventById(id, event);
+
+  if (!result.acknowledged) {
+    ctx.response.status = Status.NotFound;
+    ctx.response.body = `Failed to update event by id "${id}"`;
+    return;
+  }
+
+  ctx.response.body = { message: `Updated event id "${id}"` };
+};
+
+export const deleteEventById = async (ctx: Context) => {
+  // TODO: Delete event from DB
+  ctx.response.body = { message: `Delete event params.id` };
+};
+
 export const saveNewEvent = async (ctx: Context) => {
   // Things to note. Will this need admin authorisation? Possible need to implement token auth on this route or admin auth middleware?
   const event = await ctx.request.body.json();
@@ -96,14 +136,4 @@ export const saveEventsCronHandler = async (ctx: Context) => {
     ctx.response.body = 'No events to save';
     console.log('There were no events to save');
   }
-};
-
-export const updateEvent = async (ctx: Context) => {
-  // TODO: Update event in DB
-  ctx.response.body = { message: `Update event of params.id` };
-};
-
-export const deleteEvent = async (ctx: Context) => {
-  // TODO: Delete event from DB
-  ctx.response.body = { message: `Delete event params.id` };
 };

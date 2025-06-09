@@ -32,6 +32,10 @@ const getEventById = async (id: string): Promise<FullEvent | null> => {
   return await events.findOne({ _id: new ObjectId(id) });
 };
 
+const updateEventById = async (id: string, event: FullEvent): Promise<FullEvent | null> => {
+  return await events.updateOne({ _id: new ObjectId(id) }, { $set: event });
+};
+
 const databaseIncludes = async (event: FullEvent): Promise<boolean> => {
   const existingEvent = await events.findOne({ eventKey: event.eventKey });
   return existingEvent !== null;
@@ -93,6 +97,7 @@ const saveEvents = async (input: Event | CompleteEventType) => {
 export const eventService = {
   getAllEvents,
   getEventById,
+  updateEventById,
   saveEvents,
   isEvent,
 };
