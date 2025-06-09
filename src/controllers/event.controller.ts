@@ -1,8 +1,7 @@
-// deno-lint-ignore-file require-await
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 import { generateEvents } from '../services/openai.service.ts';
-import { eventSchema, eventFilterSchema } from 'models/event.model.ts';
+import { eventFilterSchema, FullEvent } from 'models/event.model.ts';
 
 export const getAllEvents = async (ctx: Context) => {
   const params = ctx.request.url.searchParams;
@@ -55,7 +54,7 @@ export const getEventById = async (ctx: RouterContext<'/:id'>) => {
   ctx.response.body = event;
 };
 
-export const updateEventById = async (ctx: Context) => {
+export const updateEventById = async (ctx: RouterContext<'/:id'>) => {
   const user = ctx.state.user;
 
   if (!user) {
@@ -65,7 +64,7 @@ export const updateEventById = async (ctx: Context) => {
   }
 
   const id: string = ctx.params.id;
-  const event = await ctx.request.body.json();
+  const event: FullEvent = await ctx.request.body.json();
 
   if (!ObjectId.isValid(id)) {
     ctx.response.status = Status.BadRequest;
@@ -90,7 +89,7 @@ export const updateEventById = async (ctx: Context) => {
   ctx.response.body = { message: `Updated event id "${id}"` };
 };
 
-export const deleteEventById = async (ctx: Context) => {
+export const deleteEventById = async (ctx: RouterContext<'/:id'>) => {
   const user = ctx.state.user;
 
   if (!user) {
