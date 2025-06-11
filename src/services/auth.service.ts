@@ -6,16 +6,16 @@ import {
   UserLogInInput,
   UserSignUpInput,
 } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts";
-import { compare, hashSync } from '../../deps.ts';
+import { compareSync, hashSync } from '../../deps.ts';
 import { generateToken } from '../utils/token.utils.ts';
 import type { OptionalId } from '../../deps.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
 
 const createUser = async (userInput: UserSignUpInput) => {
-console.log("Create user called");
+console.log("🍎Create user called");
  try {
-  console.log("Checking for existing user...")
+  console.log("🍎Checking for existing user...")
    const existingUser = await users.findOne({
      $or: [{ email: userInput.email }, { username: userInput.username }],
     });
@@ -29,19 +29,20 @@ console.log("Create user called");
       }
     }
     
-    console.log("hashing password...")
+    console.log("🍎hashing password...")
     const passwordHash = hashSync(userInput.password);
     // const passwordHash = compareSync(userInput.password, hash);
-    console.log('Password hashed successfully')
+    console.log('🍎Password hashed successfully')
     const userToInsert: NewUser = {
       ...userInput,
       password: passwordHash,
       saved_events: [],
       role: 'user',
     };
-    console.log('User to insert:', { ...userToInsert, password: '[HIDDEN]' });
+    console.log('🍎User to insert:', { ...userToInsert, password: '[HIDDEN]' });
     
     const result = await users.insertOne(userToInsert);
+    console.log('🍎User inserted into DB')
     if (!result) throw new Error('Failed to insert user');
     return result;
 
@@ -52,15 +53,20 @@ console.log("Create user called");
 };
 
 const logInUser = async (userInput: UserLogInInput) => {
+  console.log("🍏 Login user called")
+  console.log("🍏 Finding user")
   const exists = await users.findOne({ username: userInput.username });
+
   const validPassword = exists === null
     ? false
-    : await compare(userInput.password, exists.password);
+    : compareSync(userInput.password, exists.password);
   if (!(exists && validPassword)) {
     throw new Error('Invalid username or password');
   }
+  console.log("🍏 User found")
   const safeUser = toSafeUser(exists);
   const token = await generateToken(safeUser);
+  console.log("🍏 Returning user token")
   return token;
 };
 
