@@ -6,7 +6,7 @@
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 import { db } from '../database/connect.ts';
 import { UserInDB } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts";
-import { hash, OptionalId } from '../../deps.ts';
+import { hashSync, OptionalId } from '../../deps.ts';
 import { NewUser } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts";
 
 const users = db.collection<OptionalId<UserInDB>>('users');
@@ -23,7 +23,7 @@ export const userService = {
 };
 
 const _createAdmin = async () => {
-  const passwordHash = await hash('supersecretadminpassword');
+  const passwordHash = await hashSync('supersecretadminpassword');
   const userToInsert: NewUser = {
     email: 'admin@example.com',
     username: 'admin',
