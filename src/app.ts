@@ -11,7 +11,7 @@ Deno.cron("sample cron", "0 0 * * *", () => {
 });
 
 app.use(
-  oakCors({ origin: ['https://the-locals.netlify.app', 'http://localhost:5173/login'],
+  oakCors({ origin: ['https://the-locals.netlify.app', 'http://localhost:5173'],
     credentials: true,
     optionsSuccessStatus: 200, // For legacy browser support
    }),
