@@ -1,18 +1,21 @@
+import { eventService } from './services/event.service.ts';
+import { generateEvents } from './services/openai.service.ts';
+
 Deno.cron("save events cron", "*/10 * * * *", async () => {
-    console.log("executing cron job...")
+  console.log("executing cron job...")
   try {
-    const response = await fetch("https://the-locals.deno.dev/events/cron/save-events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Daily-Token": Deno.env.get('DAILY_JOB_TOKEN') || '',
-      },
-    });
+    console.log('Daily task triggered');
     
-    if (response.ok) {
-      console.log("Events cron job executed successfully");
+    const events = await generateEvents(
+      ['music', 'charity', 'sports', 'other'],
+      'Finsbury Park',
+    );
+
+    if (events !== null) {
+      await eventService.saveEvents(events);
+      console.log('Events saved successfully');
     } else {
-      console.error("Cron job failed with status:", response.status);
+      console.log('There were no events to save');
     }
   } catch (error) {
     console.error("Cron job failed:", error);

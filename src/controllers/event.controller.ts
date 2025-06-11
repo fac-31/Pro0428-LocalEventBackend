@@ -1,7 +1,7 @@
 // deno-lint-ignore-file require-await
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
-import { generateEvents } from '../services/openai.service.ts';
+//import { generateEvents } from '../services/openai.service.ts';
 import { eventFilterSchema } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts";
 
 export const getAllEvents = async (ctx: Context) => {
@@ -67,36 +67,36 @@ export const saveNewEvent = async (ctx: Context) => {
   }
 };
 
-export const saveEventsCronHandler = async (ctx: Context) => {
-  console.log('Called saveEventsCronHandler()');
-  const token = ctx.request.headers.get('X-Daily-Token');
+// export const saveEventsCronHandler = async (ctx: Context) => {
+//   console.log('Called saveEventsCronHandler()');
+//   const token = ctx.request.headers.get('X-Daily-Token');
 
-  // Change this to appropriate .env or github secret
-  const expectedToken = Deno.env.get('DAILY_JOB_TOKEN');
+//   // Change this to appropriate .env or github secret
+//   const expectedToken = Deno.env.get('DAILY_JOB_TOKEN');
 
-  if (token !== expectedToken) {
-    ctx.response.status = Status.Forbidden;
-    ctx.response.body = 'Forbidden';
-    return;
-  }
+//   if (token !== expectedToken) {
+//     ctx.response.status = Status.Forbidden;
+//     ctx.response.body = 'Forbidden';
+//     return;
+//   }
 
-  console.log('Daily task triggered');
+//   console.log('Daily task triggered');
 
-  const events = await generateEvents(
-    ['music', 'charity', 'sports', 'other'],
-    'Finsbury Park',
-  );
+//   const events = await generateEvents(
+//     ['music', 'charity', 'sports', 'other'],
+//     'Finsbury Park',
+//   );
 
-  if (events !== null) {
-    await eventService.saveEvents(events);
-    ctx.response.body = 'Events saved sucessfully';
-    console.log('Events saved');
-  } else {
-    ctx.response.status = Status.NoContent;
-    ctx.response.body = 'No events to save';
-    console.log('There were no events to save');
-  }
-};
+//   if (events !== null) {
+//     await eventService.saveEvents(events);
+//     ctx.response.body = 'Events saved sucessfully';
+//     console.log('Events saved');
+//   } else {
+//     ctx.response.status = Status.NoContent;
+//     ctx.response.body = 'No events to save';
+//     console.log('There were no events to save');
+//   }
+// };
 
 export const updateEvent = async (ctx: Context) => {
   // TODO: Update event in DB
