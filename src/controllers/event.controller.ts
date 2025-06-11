@@ -68,7 +68,7 @@ export const saveNewEvent = async (ctx: Context) => {
 };
 
 export const saveEventsCronHandler = async (ctx: Context) => {
-  console.log('Server pinged');
+  console.log('Called saveEventsCronHandler()');
   const token = ctx.request.headers.get('X-Daily-Token');
 
   // Change this to appropriate .env or github secret

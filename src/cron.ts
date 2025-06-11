@@ -1,4 +1,5 @@
 Deno.cron("save events cron", "*/10 * * * *", async () => {
+    console.log("executing cron job...")
   try {
     const response = await fetch("https://the-locals.deno.dev/events/cron/save-events", {
       method: "POST",
