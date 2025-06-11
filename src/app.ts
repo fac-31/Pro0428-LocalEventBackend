@@ -6,10 +6,6 @@ import logRequest from './middleware/logRequest.ts';
 
 const app = new Application();
 
-Deno.cron("sample cron", "*/10 * * * *", () => {
-  console.log("cron job executed every 10 minutes");
-});
-
 app.use(
   oakCors({ origin: ['https://the-locals.netlify.app', 'http://localhost:5173'],
     credentials: true,
@@ -21,9 +17,3 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 export default app;
-
-//cron for every 10mins
-// "*/10 * * * *"
-
-// cron for midnight
-// "0 0 * * *"
