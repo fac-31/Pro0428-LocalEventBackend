@@ -6,7 +6,7 @@ import logRequest from './middleware/logRequest.ts';
 
 const app = new Application();
 
-Deno.cron("sample cron", "*/3 * * * *", () => {
+Deno.cron("sample cron", "0 0 * * *", () => {
   console.log("cron job executed every 10 minutes");
 });
 
