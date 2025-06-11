@@ -1,6 +1,7 @@
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 import { Application, oakCors } from '../deps.ts';
 import './database/connect.ts';
+import './cron.ts';
 import router from './routes/index.ts';
 import logRequest from './middleware/logRequest.ts';
 
