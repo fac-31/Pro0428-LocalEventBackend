@@ -21,6 +21,7 @@ export const generateEvents = async (
   category: EventMode[],
   location: string,
 ): Promise<CompleteEventType | null> => {
+  console.log('Generating events')
   const catString: string = category.join(' ');
 
   const userPrompt: string =
