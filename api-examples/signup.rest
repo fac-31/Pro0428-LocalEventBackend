@@ -2,7 +2,7 @@ POST https://the-locals.deno.dev/auth/signup
 Content-Type: application/json
 
 {
-  "email": "Dkjdhsbfjebk@gmail.com",
-  "password": "securePasswod123",
-  "username": "Donald-kjhsdbck"
+  "email": "Dkjdhsbfje@gmail.com",
+  "password": "securePasswod1",
+  "username": "Donald-kjhsdb"
 }

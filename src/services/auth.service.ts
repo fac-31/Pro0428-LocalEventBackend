@@ -6,35 +6,49 @@ import {
   UserLogInInput,
   UserSignUpInput,
 } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts";
-import { compare, hash } from '../../deps.ts';
+import { compare, hashSync } from '../../deps.ts';
 import { generateToken } from '../utils/token.utils.ts';
 import type { OptionalId } from '../../deps.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
 
 const createUser = async (userInput: UserSignUpInput) => {
-  const existingUser = await users.findOne({
-    $or: [{ email: userInput.email }, { username: userInput.username }],
-  });
+console.log("Create user called");
+ try {
+  console.log("Checking for existing user...")
+   const existingUser = await users.findOne({
+     $or: [{ email: userInput.email }, { username: userInput.username }],
+    });
+    
+    if (existingUser) {
+      if (existingUser.email === userInput.email) {
+        throw new Error('User with this email already exists');
+      }
+      if (existingUser.username === userInput.username) {
+        throw new Error('This username is already in use');
+      }
+    }
+    
+    console.log("hashing password...")
+    const passwordHash = hashSync(userInput.password);
+    // const passwordHash = compareSync(userInput.password, hash);
+    console.log('Password hashed successfully')
+    const userToInsert: NewUser = {
+      ...userInput,
+      password: passwordHash,
+      saved_events: [],
+      role: 'user',
+    };
+    console.log('User to insert:', { ...userToInsert, password: '[HIDDEN]' });
+    
+    const result = await users.insertOne(userToInsert);
+    if (!result) throw new Error('Failed to insert user');
+    return result;
 
-  if (existingUser) {
-    if (existingUser.email === userInput.email) {
-      throw new Error('User with this email already exists');
-    }
-    if (existingUser.username === userInput.username) {
-      throw new Error('This username is already in use');
-    }
+  } catch (error) {
+    console.error("Error in create user:", error);
+    throw error;
   }
-  const passwordHash = await hash(userInput.password);
-  const userToInsert: NewUser = {
-    ...userInput,
-    password: passwordHash,
-    saved_events: [],
-    role: 'user',
-  };
-  const result = await users.insertOne(userToInsert);
-  if (!result) throw new Error('Failed to insert user');
-  return result;
 };
 
 const logInUser = async (userInput: UserLogInInput) => {
