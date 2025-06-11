@@ -6,7 +6,7 @@ import logRequest from './middleware/logRequest.ts';
 
 const app = new Application();
 
-Deno.cron("sample cron", "0 0 * * *", () => {
+Deno.cron("sample cron", "*/10 * * * *", () => {
   console.log("cron job executed every 10 minutes");
 });
 
@@ -21,3 +21,9 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 export default app;
+
+//cron for every 10mins
+// "*/10 * * * *"
+
+// cron for midnight
+// "0 0 * * *"
