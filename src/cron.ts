@@ -5,6 +5,7 @@ Deno.cron("save events cron", "*/10 * * * *", async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-Daily-Token": Deno.env.get('DAILY_JOB_TOKEN') || '',
       },
     });
     
