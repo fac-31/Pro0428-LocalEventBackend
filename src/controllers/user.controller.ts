@@ -43,9 +43,8 @@ export const getAllUsers = async (ctx: RouterContext<'/getUsers:role'>) => {
 };
 
 export const handleUserEvents = async (ctx: Context) => {
-
   try {
-    const user: Payload = ctx.state.user
+    const user: Payload = ctx.state.user;
 
     if (!user || !user._id) {
       ctx.response.status = Status.Unauthorized;
