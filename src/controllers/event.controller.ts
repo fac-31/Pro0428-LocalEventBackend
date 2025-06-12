@@ -16,7 +16,7 @@ export const getAllEvents = async (ctx: Context) => {
       const user: Payload = await verifyToken(token);
       userId = user._id as string;
     } catch (error) {
-      console.warn('Invalid token in /events/with-saved: ' + error);
+      console.warn('Invalid token in /events: ' + error);
     }
   }
 
