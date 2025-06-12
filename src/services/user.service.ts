@@ -11,7 +11,7 @@ import { NewUser } from 'models/user.model.ts';
 import { FullEvent } from '../../shared/src/models/event.model.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
-const events = db.collection<FullEvent>('events')
+const events = db.collection<FullEvent>('events');
 
 const getAllUsers = async (
   role: 'user' | 'admin' | 'all',
@@ -36,34 +36,38 @@ const _createAdmin = async () => {
   console.log('Admin created:', result);
 };
 
-const handleUserEvents = async (eventId: string, userId: string, saving: boolean) => {
-  console.log(saving)
+const handleUserEvents = async (
+  eventId: string,
+  userId: string,
+  saving: boolean,
+) => {
+  console.log(saving);
   if (saving === true) {
-      await users.updateOne(
-       { _id: new ObjectId(userId) },
-       { $addToSet : { saved_events: new ObjectId(eventId) } }
-    )
+    await users.updateOne(
+      { _id: new ObjectId(userId) },
+      { $addToSet: { saved_events: new ObjectId(eventId) } },
+    );
   } else {
     await users.updateOne(
       { _id: new ObjectId(userId) },
-      { $pull: { saved_events: new ObjectId(eventId) } }
-    )
+      { $pull: { saved_events: new ObjectId(eventId) } },
+    );
   }
-}
+};
 
 const getUserEvents = async (userId: string) => {
-  const user = await users.findOne({_id: new ObjectId(userId) });
+  const user = await users.findOne({ _id: new ObjectId(userId) });
   const savedEvents = user?.saved_events ?? [];
   const eventsList = await events.find({ _id: { $in: savedEvents } }).toArray();
   return eventsList;
-}
+};
 
 export const userService = {
   getAllUsers,
   handleUserEvents,
-  getUserEvents
+  getUserEvents,
 };
 /*
-User clicks heart. Event target id? This is passed to backend via post request. Route grabs this. Calls this function via the 
-user controller. Save the id which should reference 
+User clicks heart. Event target id? This is passed to backend via post request. Route grabs this. Calls this function via the
+user controller. Save the id which should reference
 */

@@ -7,7 +7,7 @@ import { Payload } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
-    const auth = ctx.request.headers.get('Authorization');
+  const auth = ctx.request.headers.get('Authorization');
   const token = auth && auth.split(' ')[1];
 
   let userId: string | null = null;
@@ -16,7 +16,6 @@ export const getAllEvents = async (ctx: Context) => {
       const user: Payload = await verifyToken(token);
       userId = user._id as string;
     } catch (error) {
-
       console.warn('Invalid token in /events/with-saved: ' + error);
     }
   }
@@ -49,12 +48,12 @@ export const getAllEvents = async (ctx: Context) => {
 
     ctx.response.body = {
       events: allEvents,
-      savedEventIds: savedEvents.map(x => x._id),
+      savedEventIds: savedEvents.map((x) => x._id),
     };
   } catch (err) {
-    console.error("Error fetching combined event data:", err);
+    console.error('Error fetching combined event data:', err);
     ctx.response.status = Status.InternalServerError;
-    ctx.response.body = { error: "Internal server error" };
+    ctx.response.body = { error: 'Internal server error' };
   }
 };
 
