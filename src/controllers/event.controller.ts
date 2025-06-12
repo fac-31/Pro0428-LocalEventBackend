@@ -89,7 +89,7 @@ export const updateEventById = async (ctx: RouterContext<'/:id'>) => {
 
   const id: string = ctx.params.id;
   const event: Partial<FullEvent> = await ctx.request.body.json();
-console.log(event)
+  console.log(event);
   if (!ObjectId.isValid(id)) {
     ctx.response.status = Status.BadRequest;
     ctx.response.body = `Invalid event id "${id}"`;
