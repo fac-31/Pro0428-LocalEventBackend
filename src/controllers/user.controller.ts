@@ -3,7 +3,6 @@ import { Context, Payload, RouterContext } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';
 import { Status } from '../../deps.ts';
 import { toSafeUser } from 'models/user.model.ts';
-import { verifyToken } from '../utils/token.utils.ts';
 
 export const getUserProfile = async (ctx: Context) => {
   // TODO: Get user data from ctx.state.user
@@ -44,15 +43,9 @@ export const getAllUsers = async (ctx: RouterContext<'/getUsers:role'>) => {
 };
 
 export const handleUserEvents = async (ctx: Context) => {
-  const auth = ctx.request.headers.get('Authorization');
-  const token = auth && auth.split(' ')[1];
-
-  if (!token) {
-    return ctx.response.status = Status.Unauthorized;
-  }
 
   try {
-    const user: Payload = await verifyToken(token);
+    const user: Payload = ctx.state.user
 
     if (!user || !user._id) {
       ctx.response.status = Status.Unauthorized;
