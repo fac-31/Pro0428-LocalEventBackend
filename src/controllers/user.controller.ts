@@ -47,10 +47,9 @@ export const handleUserEvents = async (ctx: Context) => {
   const auth = ctx.request.headers.get('Authorization');
   const token = auth && auth.split(' ')[1];
 
-if (!token) {
-  return ctx.response.status = Status.Unauthorized;
-  
-}
+  if (!token) {
+    return ctx.response.status = Status.Unauthorized;
+  }
 
   try {
     const user: Payload = await verifyToken(token);
@@ -65,8 +64,8 @@ if (!token) {
     const userId = user._id as string;
 
     await userService.handleUserEvents(eventId, userId, active);
-    return ctx.response.body = "User event handled"
+    return ctx.response.body = 'User event handled';
   } catch (error) {
-    console.error('Issue saving user events: ' + error)
+    console.error('Issue saving user events: ' + error);
   }
-}
+};
