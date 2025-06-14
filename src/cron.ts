@@ -9,7 +9,7 @@ if (Deno.env.get('DENO_DEPLOYMENT_ID')) {
 
       const events = await generateEvents(
         ['music', 'charity', 'sports', 'other'],
-        'Finsbury Park'
+        'Finsbury Park',
       );
 
       if (events !== null) {
