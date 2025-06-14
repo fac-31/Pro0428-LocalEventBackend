@@ -1,5 +1,5 @@
 // deno-lint-ignore-file require-await
-import { Context, RouterContext } from '../../deps.ts';
+import { Context, Payload, RouterContext } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';
 import { Status } from '../../deps.ts';
 import { toSafeUser } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts";
@@ -17,7 +17,7 @@ export const deleteUserAccount = async (ctx: Context) => {
   // TODO: Call userService.deleteUser(ctx.state.user.id)
   ctx.response.body = { message: 'Delete user account' };
 };
-export const getAllUsers = async (ctx: RouterContext<'/:role'>) => {
+export const getAllUsers = async (ctx: RouterContext<'/getUsers:role'>) => {
   const role = ctx.params.role;
 
   if (role !== 'user' && role !== 'admin' && role !== 'all') {
@@ -38,5 +38,25 @@ export const getAllUsers = async (ctx: RouterContext<'/:role'>) => {
     } else {
       throw new Error('Admin getAllUsers failed with an unknown error');
     }
+  }
+};
+
+export const handleUserEvents = async (ctx: Context) => {
+  try {
+    const user: Payload = ctx.state.user;
+
+    if (!user || !user._id) {
+      ctx.response.status = Status.Unauthorized;
+      ctx.response.body = { message: 'Unauthorized: Invalid token' };
+      return;
+    }
+    const body = await ctx.request.body.json();
+    const { eventId, active } = body;
+    const userId = user._id as string;
+
+    await userService.handleUserEvents(eventId, userId, active);
+    return ctx.response.body = 'User event handled';
+  } catch (error) {
+    console.error('Issue saving user events: ' + error);
   }
 };
