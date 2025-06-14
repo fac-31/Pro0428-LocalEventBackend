@@ -1,7 +1,10 @@
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 import { generateEvents } from '../services/openai.service.ts';
+
 import { eventFilterSchema, FullEvent } from 'models/event.model.ts';
+import { ErrorResponse, MessageResponse } from 'services/general.service.ts';
+import { GetAllEventsErrorResponse } from 'services/events.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
   const params = ctx.request.url.searchParams;
@@ -26,7 +29,7 @@ export const getAllEvents = async (ctx: Context) => {
     ctx.response.body = {
       error: 'Invalid query parameters',
       details: parseResult.error.format(),
-    };
+    } as GetAllEventsErrorResponse;
     return;
   }
 
@@ -39,7 +42,7 @@ export const getEventById = async (ctx: RouterContext<'/:id'>) => {
 
   if (!ObjectId.isValid(id)) {
     ctx.response.status = Status.BadRequest;
-    ctx.response.body = `Invalid event id "${id}"`;
+    ctx.response.body = { error: `Invalid event id "${id}"` } as ErrorResponse;
     return;
   }
 
@@ -47,7 +50,9 @@ export const getEventById = async (ctx: RouterContext<'/:id'>) => {
 
   if (!event) {
     ctx.response.status = Status.NotFound;
-    ctx.response.body = `Event id "${id}" does not exist`;
+    ctx.response.body = {
+      error: `Event id "${id}" does not exist`,
+    } as ErrorResponse;
     return;
   }
 
@@ -59,7 +64,7 @@ export const updateEventById = async (ctx: RouterContext<'/:id'>) => {
 
   if (!user) {
     ctx.response.status = Status.Unauthorized;
-    ctx.response.body = { message: 'User not authenticated' };
+    ctx.response.body = { error: 'User not authenticated' } as ErrorResponse;
     return;
   }
 
@@ -68,13 +73,15 @@ export const updateEventById = async (ctx: RouterContext<'/:id'>) => {
 
   if (!ObjectId.isValid(id)) {
     ctx.response.status = Status.BadRequest;
-    ctx.response.body = `Invalid event id "${id}"`;
+    ctx.response.body = { error: `Invalid event id "${id}"` } as ErrorResponse;
     return;
   }
 
   if (!eventService.isEvent(event)) {
     ctx.response.status = Status.BadRequest;
-    ctx.response.body = `Failed to validate event body`;
+    ctx.response.body = {
+      error: `Failed to validate event body`,
+    } as ErrorResponse;
     return;
   }
 
@@ -82,11 +89,15 @@ export const updateEventById = async (ctx: RouterContext<'/:id'>) => {
 
   if (!result.acknowledged) {
     ctx.response.status = Status.NotFound;
-    ctx.response.body = `Failed to update event by id "${id}"`;
+    ctx.response.body = {
+      error: `Failed to update event by id "${id}"`,
+    } as ErrorResponse;
     return;
   }
 
-  ctx.response.body = { message: `Updated event id "${id}"` };
+  ctx.response.body = {
+    message: `Updated event id "${id}"`,
+  } as MessageResponse;
 };
 
 export const deleteEventById = async (ctx: RouterContext<'/:id'>) => {
@@ -94,7 +105,7 @@ export const deleteEventById = async (ctx: RouterContext<'/:id'>) => {
 
   if (!user) {
     ctx.response.status = Status.Unauthorized;
-    ctx.response.body = { message: 'User not authenticated' };
+    ctx.response.body = { error: 'User not authenticated' } as ErrorResponse;
     return;
   }
 
@@ -102,7 +113,7 @@ export const deleteEventById = async (ctx: RouterContext<'/:id'>) => {
 
   if (!ObjectId.isValid(id)) {
     ctx.response.status = Status.BadRequest;
-    ctx.response.body = `Invalid event id "${id}"`;
+    ctx.response.body = { error: `Invalid event id "${id}"` } as ErrorResponse;
     return;
   }
 
@@ -110,11 +121,15 @@ export const deleteEventById = async (ctx: RouterContext<'/:id'>) => {
 
   if (result.deletedCount == 0) {
     ctx.response.status = Status.NotFound;
-    ctx.response.body = `Could not find event id "${id}"`;
+    ctx.response.body = {
+      error: `Could not find event id "${id}"`,
+    } as ErrorResponse;
     return;
   }
 
-  ctx.response.body = { message: `Successfully deleted event id "${id}"` };
+  ctx.response.body = {
+    message: `Successfully deleted event id "${id}"`,
+  } as MessageResponse;
 };
 
 export const saveNewEvent = async (ctx: Context) => {
@@ -123,9 +138,13 @@ export const saveNewEvent = async (ctx: Context) => {
 
   if (eventService.isEvent(event)) {
     eventService.saveEvents(event);
-    ctx.response.body = 'Event saved sucessfully';
+    ctx.response.body = {
+      message: 'Event saved sucessfully',
+    } as MessageResponse;
   } else {
-    ctx.response.body = 'Create new event failed: Validation Error';
+    ctx.response.body = {
+      error: 'Create new event failed: Validation Error',
+    } as ErrorResponse;
   }
 };
 
@@ -138,7 +157,7 @@ export const saveEventsCronHandler = async (ctx: Context) => {
 
   if (token !== expectedToken) {
     ctx.response.status = Status.Forbidden;
-    ctx.response.body = 'Forbidden';
+    ctx.response.body = { error: 'Forbidden' } as ErrorResponse;
     return;
   }
 
@@ -151,11 +170,13 @@ export const saveEventsCronHandler = async (ctx: Context) => {
 
   if (events !== null) {
     await eventService.saveEvents(events);
-    ctx.response.body = 'Events saved sucessfully';
+    ctx.response.body = {
+      message: 'Events saved sucessfully',
+    } as MessageResponse;
     console.log('Events saved');
   } else {
     ctx.response.status = Status.NoContent;
-    ctx.response.body = 'No events to save';
+    ctx.response.body = { error: 'No events to save' } as ErrorResponse;
     console.log('There were no events to save');
   }
 };
