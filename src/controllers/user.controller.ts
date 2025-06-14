@@ -2,7 +2,7 @@
 import { Context, Payload, RouterContext } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';
 import { Status } from '../../deps.ts';
-import { toSafeUser } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts";
+import { toSafeUser } from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
 export const getUserProfile = async (ctx: Context) => {
   // TODO: Get user data from ctx.state.user
   ctx.response.body = { message: 'Get user profile' };
