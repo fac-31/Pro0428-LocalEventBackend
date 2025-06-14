@@ -1,6 +1,9 @@
 // deno-lint-ignore-file require-await
 import { Context, RouterContext, Status } from '../../deps.ts';
-import { UserLogInSchema, UserSignUpSchema } from 'models/user.model.ts';
+import {
+  UserLogInSchema,
+  UserSignUpSchema,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
 import { authService } from '../services/auth.service.ts';
 
 export const getCurrentUser = async (ctx: Context) => {
@@ -19,9 +22,13 @@ export const getCurrentUser = async (ctx: Context) => {
 
 export const signUpUser = async (ctx: RouterContext<'/signup'>) => {
   const body = await ctx.request.body.json();
+  console.log('Request body:', body);
+
   const userInput = UserSignUpSchema.safeParse(body);
+  console.log('Validtion result:', userInput.success);
 
   if (!userInput.success) {
+    console.log('Validation Errors:', userInput.error);
     ctx.response.status = Status.BadRequest;
     ctx.response.body = { errors: userInput.error.flatten() };
     return;
@@ -33,6 +40,7 @@ export const signUpUser = async (ctx: RouterContext<'/signup'>) => {
   } catch (error) {
     ctx.response.status = Status.InternalServerError;
     if (error instanceof Error) {
+      console.log('Sign up user error:', error);
       ctx.response.body = { error: error.message };
     } else {
       ctx.response.body = { error: 'Unkown error creating user' };

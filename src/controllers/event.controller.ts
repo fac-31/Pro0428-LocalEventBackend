@@ -1,27 +1,40 @@
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
-import { generateEvents } from '../services/openai.service.ts';
-import { eventFilterSchema, FullEvent } from 'models/event.model.ts';
+//import { generateEvents } from '../services/openai.service.ts';
+import {
+  eventFilterSchema,
+  FullEvent,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
+import { verifyToken } from '../utils/token.utils.ts';
+import { Payload } from '../../deps.ts';
+import { userService } from '../services/user.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
+  const auth = ctx.request.headers.get('Authorization');
+  const token = auth && auth.split(' ')[1];
+
+  let userId: string | null = null;
+  if (token) {
+    try {
+      const user: Payload = await verifyToken(token);
+      userId = user._id as string;
+    } catch (error) {
+      console.warn('Invalid token in /events: ' + error);
+    }
+  }
+
   const params = ctx.request.url.searchParams;
-
   const rawModes = params.getAll('mode');
-
   const normalizedModes = rawModes
     .flatMap((param) => param.split(','))
     .map((mode) => mode.trim().toLowerCase())
-    .filter(Boolean); // removes empty strings
+    .filter(Boolean);
 
   const parseResult = eventFilterSchema.safeParse({
     mode: normalizedModes.length > 0 ? normalizedModes : undefined,
   });
 
-  let allEvents;
-  if (parseResult.success) {
-    console.log(parseResult.data);
-    allEvents = await eventService.getAllEvents(parseResult.data);
-  } else {
+  if (!parseResult.success) {
     ctx.response.status = Status.BadRequest;
     ctx.response.body = {
       error: 'Invalid query parameters',
@@ -30,7 +43,21 @@ export const getAllEvents = async (ctx: Context) => {
     return;
   }
 
-  ctx.response.body = allEvents;
+  try {
+    const [allEvents, savedEvents] = await Promise.all([
+      eventService.getAllEvents(parseResult.data),
+      userId ? userService.getUserEvents(userId) : Promise.resolve([]),
+    ]);
+
+    ctx.response.body = {
+      events: allEvents,
+      savedEventIds: savedEvents.map((x) => x._id),
+    };
+  } catch (err) {
+    console.error('Error fetching combined event data:', err);
+    ctx.response.status = Status.InternalServerError;
+    ctx.response.body = { error: 'Internal server error' };
+  }
 };
 
 export const getEventById = async (ctx: RouterContext<'/:id'>) => {
@@ -64,8 +91,8 @@ export const updateEventById = async (ctx: RouterContext<'/:id'>) => {
   }
 
   const id: string = ctx.params.id;
-  const event: FullEvent = await ctx.request.body.json();
-
+  const event: Partial<FullEvent> = await ctx.request.body.json();
+  console.log(event);
   if (!ObjectId.isValid(id)) {
     ctx.response.status = Status.BadRequest;
     ctx.response.body = `Invalid event id "${id}"`;
@@ -129,33 +156,43 @@ export const saveNewEvent = async (ctx: Context) => {
   }
 };
 
-export const saveEventsCronHandler = async (ctx: Context) => {
-  console.log('Server pinged');
-  const token = ctx.request.headers.get('X-Daily-Token');
+// export const saveEventsCronHandler = async (ctx: Context) => {
+//   console.log('Called saveEventsCronHandler()');
+//   const token = ctx.request.headers.get('X-Daily-Token');
 
-  // Change this to appropriate .env or github secret
-  const expectedToken = Deno.env.get('DAILY_JOB_TOKEN');
+//   // Change this to appropriate .env or github secret
+//   const expectedToken = Deno.env.get('DAILY_JOB_TOKEN');
 
-  if (token !== expectedToken) {
-    ctx.response.status = Status.Forbidden;
-    ctx.response.body = 'Forbidden';
-    return;
-  }
+//   if (token !== expectedToken) {
+//     ctx.response.status = Status.Forbidden;
+//     ctx.response.body = 'Forbidden';
+//     return;
+//   }
 
-  console.log('Daily task triggered');
+//   console.log('Daily task triggered');
 
-  const events = await generateEvents(
-    ['music', 'charity', 'sports', 'other'],
-    'Finsbury Park',
-  );
+//   const events = await generateEvents(
+//     ['music', 'charity', 'sports', 'other'],
+//     'Finsbury Park',
+//   );
 
-  if (events !== null) {
-    await eventService.saveEvents(events);
-    ctx.response.body = 'Events saved sucessfully';
-    console.log('Events saved');
-  } else {
-    ctx.response.status = Status.NoContent;
-    ctx.response.body = 'No events to save';
-    console.log('There were no events to save');
-  }
-};
+//   if (events !== null) {
+//     await eventService.saveEvents(events);
+//     ctx.response.body = 'Events saved sucessfully';
+//     console.log('Events saved');
+//   } else {
+//     ctx.response.status = Status.NoContent;
+//     ctx.response.body = 'No events to save';
+//     console.log('There were no events to save');
+//   }
+// };
+
+// export const updateEvent = async (ctx: Context) => {
+//   // TODO: Update event in DB
+//   ctx.response.body = { message: `Update event of params.id` };
+// };
+
+// export const deleteEvent = async (ctx: Context) => {
+//   // TODO: Delete event from DB
+//   ctx.response.body = { message: `Delete event params.id` };
+// };
