@@ -4,7 +4,7 @@ import {
   CompleteEventType,
   EventMode,
   eventsArraySchema,
-} from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts";
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
 import { OpenAI, zodTextFormat } from '../../deps.ts';
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 
@@ -21,7 +21,7 @@ export const generateEvents = async (
   category: EventMode[],
   location: string,
 ): Promise<CompleteEventType | null> => {
-  console.log('Generating events')
+  console.log('Generating events');
   const catString: string = category.join(' ');
 
   const userPrompt: string =

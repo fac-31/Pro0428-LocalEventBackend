@@ -1,7 +1,10 @@
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 //import { generateEvents } from '../services/openai.service.ts';
-import { eventFilterSchema, FullEvent } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts";
+import {
+  eventFilterSchema,
+  FullEvent,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
 import { verifyToken } from '../utils/token.utils.ts';
 import { Payload } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';
@@ -184,12 +187,12 @@ export const saveNewEvent = async (ctx: Context) => {
 //   }
 // };
 
-export const updateEvent = async (ctx: Context) => {
-  // TODO: Update event in DB
-  ctx.response.body = { message: `Update event of params.id` };
-};
+// export const updateEvent = async (ctx: Context) => {
+//   // TODO: Update event in DB
+//   ctx.response.body = { message: `Update event of params.id` };
+// };
 
-export const deleteEvent = async (ctx: Context) => {
-  // TODO: Delete event from DB
-  ctx.response.body = { message: `Delete event params.id` };
-};
+// export const deleteEvent = async (ctx: Context) => {
+//   // TODO: Delete event from DB
+//   ctx.response.body = { message: `Delete event params.id` };
+// };
