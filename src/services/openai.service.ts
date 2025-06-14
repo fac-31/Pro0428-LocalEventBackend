@@ -4,7 +4,7 @@ import {
   CompleteEventType,
   EventMode,
   eventsArraySchema,
-} from 'models/event.model.ts';
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
 import { OpenAI, zodTextFormat } from '../../deps.ts';
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 
@@ -21,10 +21,11 @@ export const generateEvents = async (
   category: EventMode[],
   location: string,
 ): Promise<CompleteEventType | null> => {
+  console.log('Generating events');
   const catString: string = category.join(' ');
 
   const userPrompt: string =
-    `List 5 events each for ${catString} near ${location}. Return only valid JSON in this format:
+    `Search for and list your top 75 interesting/fun/educational/charitable etc events within a 20km radius of ${location} (and don't be afraid to find the occasional obscure event!). Label each event as one of these categories to the best of your ability: ${catString}. Return only valid JSON in this format:
     {
         musicEvents: [
         {

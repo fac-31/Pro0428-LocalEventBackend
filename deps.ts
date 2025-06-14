@@ -29,4 +29,8 @@ export type { Payload } from 'https://deno.land/x/djwt@v3.0.2/mod.ts';
 export { Db, MongoClient, ObjectId } from 'npm:mongodb@6.1.0';
 export type { OptionalId } from 'npm:mongodb@6.1.0';
 
-export { compare, hash } from 'https://deno.land/x/bcrypt@v0.4.1/mod.ts';
+//more stable version of bycrypt
+export {
+  compareSync,
+  hashSync,
+} from 'https://deno.land/x/bcrypt@v0.2.4/mod.ts';

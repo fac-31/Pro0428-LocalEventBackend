@@ -3,7 +3,7 @@ import {
   deleteEventById,
   getAllEvents,
   getEventById,
-  saveEventsCronHandler,
+  //saveEventsCronHandler,
   saveNewEvent,
   updateEventById,
 } from '../controllers/event.controller.ts';
@@ -20,7 +20,7 @@ router.get('/:id', getEventById);
 router.put('/:id', ProtectRoute, protectAdmin, updateEventById);
 router.delete('/:id', ProtectRoute, protectAdmin, deleteEventById);
 router.post('/save-event', saveNewEvent);
-router.post('/cron/save-events', saveEventsCronHandler);
+//router.post('/cron/save-events', saveEventsCronHandler);
 // router.post("/")
 
 // router.post("/generate", generateEvents) (using the openAi service)

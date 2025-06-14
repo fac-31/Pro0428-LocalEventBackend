@@ -13,7 +13,7 @@ import {
   eventsArraySchema,
   eventSchema,
   FullEvent,
-} from 'models/event.model.ts';
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
 import { normaliseEvents } from '../utils/event.utils.ts';
 
 const events = db.collection<FullEvent>('events');
@@ -32,7 +32,7 @@ const getEventById = async (id: string): Promise<FullEvent | null> => {
   return await events.findOne({ _id: new ObjectId(id) });
 };
 
-const updateEventById = async (id: string, event: FullEvent) => {
+const updateEventById = async (id: string, event: Partial<FullEvent>) => {
   return await events.updateOne({ _id: new ObjectId(id) }, { $set: event });
 };
 
