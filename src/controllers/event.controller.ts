@@ -1,8 +1,7 @@
-// deno-lint-ignore-file require-await
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 //import { generateEvents } from '../services/openai.service.ts';
-import { eventFilterSchema } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts";
+import { eventFilterSchema, FullEvent } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts";
 
 export const getAllEvents = async (ctx: Context) => {
   const params = ctx.request.url.searchParams;
@@ -53,6 +52,69 @@ export const getEventById = async (ctx: RouterContext<'/:id'>) => {
   }
 
   ctx.response.body = event;
+};
+
+export const updateEventById = async (ctx: RouterContext<'/:id'>) => {
+  const user = ctx.state.user;
+
+  if (!user) {
+    ctx.response.status = Status.Unauthorized;
+    ctx.response.body = { message: 'User not authenticated' };
+    return;
+  }
+
+  const id: string = ctx.params.id;
+  const event: FullEvent = await ctx.request.body.json();
+
+  if (!ObjectId.isValid(id)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Invalid event id "${id}"`;
+    return;
+  }
+
+  if (!eventService.isEvent(event)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Failed to validate event body`;
+    return;
+  }
+
+  const result = await eventService.updateEventById(id, event);
+
+  if (!result.acknowledged) {
+    ctx.response.status = Status.NotFound;
+    ctx.response.body = `Failed to update event by id "${id}"`;
+    return;
+  }
+
+  ctx.response.body = { message: `Updated event id "${id}"` };
+};
+
+export const deleteEventById = async (ctx: RouterContext<'/:id'>) => {
+  const user = ctx.state.user;
+
+  if (!user) {
+    ctx.response.status = Status.Unauthorized;
+    ctx.response.body = { message: 'User not authenticated' };
+    return;
+  }
+
+  const id: string = ctx.params.id;
+
+  if (!ObjectId.isValid(id)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Invalid event id "${id}"`;
+    return;
+  }
+
+  const result = await eventService.deleteEventById(id);
+
+  if (result.deletedCount == 0) {
+    ctx.response.status = Status.NotFound;
+    ctx.response.body = `Could not find event id "${id}"`;
+    return;
+  }
+
+  ctx.response.body = { message: `Successfully deleted event id "${id}"` };
 };
 
 export const saveNewEvent = async (ctx: Context) => {
