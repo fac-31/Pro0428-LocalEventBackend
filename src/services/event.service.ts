@@ -13,7 +13,7 @@ import {
   eventsArraySchema,
   eventSchema,
   FullEvent,
-} from 'models/event.model.ts';
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
 import { normaliseEvents } from '../utils/event.utils.ts';
 
 const events = db.collection<FullEvent>('events');
@@ -30,6 +30,14 @@ const getAllEvents = async (filter: EventFilter): Promise<FullEvent[]> => {
 
 const getEventById = async (id: string): Promise<FullEvent | null> => {
   return await events.findOne({ _id: new ObjectId(id) });
+};
+
+const updateEventById = async (id: string, event: Partial<FullEvent>) => {
+  return await events.updateOne({ _id: new ObjectId(id) }, { $set: event });
+};
+
+const deleteEventById = async (id: string) => {
+  return await events.deleteOne({ _id: new ObjectId(id) });
 };
 
 const databaseIncludes = async (event: FullEvent): Promise<boolean> => {
@@ -93,6 +101,8 @@ const saveEvents = async (input: Event | CompleteEventType) => {
 export const eventService = {
   getAllEvents,
   getEventById,
+  updateEventById,
+  deleteEventById,
   saveEvents,
   isEvent,
 };
