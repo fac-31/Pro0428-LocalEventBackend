@@ -10,6 +10,7 @@ import {
 import { compare, hash } from '../../deps.ts';
 import { generateToken } from '../utils/token.utils.ts';
 import { ObjectId, OptionalId } from '../../deps.ts';
+import { emailService } from './email.services.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
 
@@ -100,9 +101,19 @@ const refreshUserToken = async (id: string | ObjectId) => {
   return await generateToken(safeUser);
 };
 
+const handlePasswordResetRequest = async (email: string) => {
+  const exists = await users.findOne({ email });
+  if (!exists) return; // This is a silent fail for security reasons
+  const safeUser = toSafeUser(exists);
+  const token = await generateToken(safeUser);
+  const magicLink = `${BAKCEND_URL}/reset-password?token=${token}`;
+  await emailService.sendMagicLink(email, magicLink);
+};
+
 export const authService = {
   createUser,
   updateUser,
   logInUser,
   refreshUserToken,
+  handlePasswordResetRequest,
 };

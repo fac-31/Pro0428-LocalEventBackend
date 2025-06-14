@@ -102,7 +102,28 @@ export const loginUser = async (ctx: RouterContext<'/login'>) => {
   }
 };
 
-export const logoutUser = async (ctx: Context) => {
-  // TODO: Invalidate token or session
-  ctx.response.body = { message: 'Log out user' };
+export const requestPasswordReset = async (
+  ctx: RouterContext<'/request-password-reset'>
+) => {
+  const body = await ctx.request.body.json();
+  const email = body?.email;
+  if (!email) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = 'email required';
+    return;
+  }
+  try {
+    await authService.handlePasswordResetRequest(email);
+  } catch (error) {
+    if (error instanceof Error) console.error(error);
+  }
+  ctx.response.status = Status.OK;
+  ctx.response.body = {
+    message: 'If your email exists, a reset link will be sent shortly.',
+  };
+};
+
+export const resetPassword = async (ctx: RouterContext<'/reset-password'>) => {
+  const body = await ctx.request.body.json();
+  console.log(body);
 };
