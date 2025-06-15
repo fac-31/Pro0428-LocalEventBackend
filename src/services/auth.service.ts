@@ -97,14 +97,9 @@ const logInUser = async (userInput: UserLogInInput) => {
   console.log('🍏 Login user called');
   console.log('🍏 Finding user');
   const exists = await users.findOne({ username: userInput.username });
-  const validPassword =
-    exists === null
-      ? false
-      : await compare(userInput.password, exists.password);
 
-  const validPassword = exists === null
-    ? false
-    : compareSync(userInput.password, exists.password);
+  const validPassword =
+    exists === null ? false : compareSync(userInput.password, exists.password);
   if (!(exists && validPassword)) {
     throw new Error('Invalid username or password');
   }
@@ -123,12 +118,17 @@ const refreshUserToken = async (id: string | ObjectId) => {
   return await generateToken(safeUser);
 };
 
+const FRONTEND_URL = Deno.env.get('FRONTEND_URL');
+console.log(FRONTEND_URL);
+
 const handlePasswordResetRequest = async (email: string) => {
   const exists = await users.findOne({ email });
   if (!exists) return; // This is a silent fail for security reasons
   const safeUser = toSafeUser(exists);
   const token = await generateToken(safeUser);
-  const magicLink = `${BAKCEND_URL}/reset-password?token=${token}`;
+  const magicLink = `${FRONTEND_URL}reset-password?token=${token}`;
+  console.log('magic link:');
+  console.log(magicLink);
   await emailService.sendMagicLink(email, magicLink);
 };
 

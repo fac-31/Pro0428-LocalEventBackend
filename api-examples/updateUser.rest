@@ -1,7 +1,7 @@
 PUT http://localhost:3000/auth/me
 Content-Type: application/json
-Authorization: Bearer token-go-here
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODNkODY0YzQ5YmI1MDYxNTM3YjA1NTMiLCJuYW1lX2ZpcnN0IjoiQm9iIiwibmFtZV9sYXN0IjoiQnVpbGRlciIsImVtYWlsIjoiYm9iQGJ1aWxkZXIuY29tIiwidXNlcm5hbWUiOiJib2IiLCJzYXZlZF9ldmVudHMiOltdLCJyb2xlIjoiYWRtaW4ifQ.F3z5gv47rHpeKz_AwhzuO7gnjIvM1-lgv_sXJIa5FVQ
 
 {
-  "password": "newpassword"
+  "password": "a"
 }
