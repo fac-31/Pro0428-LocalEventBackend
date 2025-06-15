@@ -54,6 +54,7 @@ export const isEvent = (obj: unknown): obj is Event => {
 };
 
 const saveEvents = async (input: Event | CompleteEventType) => {
+  console.log("Calling saveEvents()...")
   if (isCompleteEventType(input)) {
     // Flatten all event categories into a single array
     const allEvents: Event[] = [
@@ -64,6 +65,7 @@ const saveEvents = async (input: Event | CompleteEventType) => {
     ];
 
     const normalisedEvents = normaliseEvents(allEvents);
+    console.log("Event title normalised...")
 
     for (const event of normalisedEvents) {
       try {
@@ -85,6 +87,8 @@ const saveEvents = async (input: Event | CompleteEventType) => {
     try {
       if (!(await databaseIncludes(normalisedEvent[0]))) {
         await events.insertOne(normalisedEvent[0]);
+      } else {
+        console.log("Event duplicate:", normalisedEvent)
       }
     } catch (error) {
       if (error instanceof Error) {

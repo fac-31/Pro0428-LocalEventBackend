@@ -1,7 +1,7 @@
 import { eventService } from './services/event.service.ts';
 import { generateEvents } from './services/openai.service.ts';
 
-Deno.cron('save events cron', '0 0 * * *', async () => {
+Deno.cron('save events cron', "*/3 * * * *", async () => {
   console.log('executing cron job...');
   try {
     console.log('Daily task triggered');
@@ -23,7 +23,7 @@ Deno.cron('save events cron', '0 0 * * *', async () => {
 });
 
 //cron for every 10mins
-// "*/10 * * * *"
+// "*/3 * * * *"
 
 // cron for midnight
 // "0 0 * * *"
