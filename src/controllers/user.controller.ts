@@ -1,10 +1,11 @@
 // deno-lint-ignore-file require-await
 import { Context, Payload, RouterContext, toSafeUser } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';
-import { Status } from '../../deps.ts';
-
-import { ErrorResponse } from 'services/general.service.ts';
-import { GetAllUsersSuccessResponse } from 'services/users.service.ts';
+import {
+  ErrorResponse,
+  GetAllUsersSuccessResponse,
+  Status,
+} from '../../deps.ts';
 
 export const getUserProfile = async (ctx: Context) => {
   // TODO: Get user data from ctx.state.user

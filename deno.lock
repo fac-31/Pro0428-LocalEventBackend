@@ -233,7 +233,11 @@
     "https://deno.land/x/zod@v3.24.4/types.ts": "cfdd77407d4b06e79bd63e9cfdb6091489aeb5f432d03a68c0531c1965d001fb",
     "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/deps.ts": "fdb5c487e374fb289d37836f0c89ce1f1d0a56c131e01c10cb797aec1e5a8f7f",
     "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts": "ef793ba4fe8a964fbddbeb9b38440810db0ccbd257afbde9592ba336ec3eafc7",
-    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts": "1e863d6b3803d775c5784e3dfd9d8374c379f46c5d66e64c5c442bd10effacd4"
+    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts": "1e863d6b3803d775c5784e3dfd9d8374c379f46c5d66e64c5c442bd10effacd4",
+    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/services/auth.service.ts": "15de25400f0c7118ff9b8076f143c8e33614585800b7325a5e34db405b919e24",
+    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/services/events.service.ts": "58535b60580e22ea2adcaf27d06a40f2f9623477009b86629bdf0bba79bc5319",
+    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/services/general.service.ts": "bf4a0afe2ad8f813fd62fefb536be0064894d8e930a1e673d497ab2852ff5682",
+    "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/services/users.service.ts": "df8539de0c2bef507dadcd8e2410be30699a88bf4a54b7d3f11438c04367ce47"
   },
   "workspace": {
     "dependencies": [

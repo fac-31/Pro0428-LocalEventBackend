@@ -1,13 +1,14 @@
 import {
   Context,
+  ErrorResponse,
   eventFilterSchema,
   FullEvent,
+  GetAllEventsErrorResponse,
+  MessageResponse,
   ObjectId,
   RouterContext,
   Status,
 } from '../../deps.ts';
-import { ErrorResponse, MessageResponse } from 'services/general.service.ts';
-import { GetAllEventsErrorResponse } from 'services/events.service.ts';
 
 import { eventService } from '../services/event.service.ts';
 //import { generateEvents } from '../services/openai.service.ts';

@@ -1,23 +1,20 @@
 // deno-lint-ignore-file require-await
 import {
   Context,
+  ErrorResponse,
+  LoginErrorDetails,
+  LoginErrorResponse,
+  LoginSuccessResponse,
+  MeSuccessResponse,
   RouterContext,
+  SignupErrorDetails,
+  SignupErrorResponse,
+  SignupSuccessResponse,
   Status,
   UserLogInSchema,
   UserSignUpSchema,
 } from '../../deps.ts';
 import { authService } from '../services/auth.service.ts';
-
-import { ErrorResponse } from 'services/general.service.ts';
-import {
-  LoginErrorDetails,
-  LoginErrorResponse,
-  LoginSuccessResponse,
-  MeSuccessResponse,
-  SignupErrorDetails,
-  SignupErrorResponse,
-  SignupSuccessResponse,
-} from 'services/auth.service.ts';
 
 export const getCurrentUser = async (ctx: Context) => {
   const user = ctx.state.user;
