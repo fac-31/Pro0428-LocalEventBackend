@@ -138,15 +138,15 @@ export function normaliseEvents(events: Event[]): FullEvent[] {
 // Pre-filter events by same date and location
 export function preFilterEventsByDateAndLocation(
   newEvent: FullEvent,
-  existingEvents: FullEvent[]
+  existingEvents: FullEvent[],
 ): FullEvent[] {
   const newEventDate = newEvent.date.toString();
   const newEventLocation = newEvent.location.toLowerCase().trim();
-  
-  return existingEvents.filter(event => {
+
+  return existingEvents.filter((event) => {
     const eventDate = event.date.toString();
     const eventLocation = event.location.toLowerCase().trim();
-    
+
     return eventDate === newEventDate && eventLocation === newEventLocation;
   });
 }
@@ -155,47 +155,45 @@ export function preFilterEventsByDateAndLocation(
 export function findDuplicateEvents(
   newEvent: FullEvent,
   candidateEvents: FullEvent[],
-  threshold: number = 0.6
+  threshold: number = 0.6,
 ): FullEvent[] {
   if (candidateEvents.length === 0) {
     return [];
   }
-  
+
   // Configure Fuse.js options
   const fuseOptions = {
     keys: [
       { name: 'name', weight: 0.7 },
       { name: 'normalizedName', weight: 0.5 },
-      { name: 'description', weight: 0.3 }
+      { name: 'description', weight: 0.3 },
     ],
     threshold: threshold, // Lower = more strict matching
     includeScore: true,
     ignoreLocation: true,
-    minMatchCharLength: 3
+    minMatchCharLength: 3,
   };
-  
+
   const fuse = new Fuse(candidateEvents, fuseOptions);
   const results = fuse.search(newEvent.name);
-  
+
   // Return events that match below the threshold
   return results
-    .filter(result => result.score !== undefined && result.score <= threshold)
-    .map(result => result.item);
+    .filter((result) => result.score !== undefined && result.score <= threshold)
+    .map((result) => result.item);
 }
 
 // Main duplicate detection function
 export function detectDuplicates(
   newEvent: FullEvent,
   existingEvents: FullEvent[],
-  fuzzyThreshold: number = 0.6
+  fuzzyThreshold: number = 0.6,
 ): FullEvent[] {
   //Pre-filter by date and location
   const candidates = preFilterEventsByDateAndLocation(newEvent, existingEvents);
-  
+
   //Fuzzy match within the candidates
   const duplicates = findDuplicateEvents(newEvent, candidates, fuzzyThreshold);
-  
+
   return duplicates;
 }
-
-

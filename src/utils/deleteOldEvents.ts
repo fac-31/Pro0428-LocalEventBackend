@@ -1,6 +1,6 @@
 import { db } from '../database/connect.ts';
 
-const events = db.collection("events");
+const events = db.collection('events');
 
 // Helper: Get today's date at midnight
 function getTodayMidnight(): Date {
@@ -13,7 +13,7 @@ export async function deleteOldEvents() {
 
   // Delete documents with 'date' < today
   const deleteCount = await events.deleteMany({
-    date: { $lt: today }
+    date: { $lt: today },
   });
 
   console.table(deleteCount);
