@@ -34,3 +34,7 @@ export {
   compareSync,
   hashSync,
 } from 'https://deno.land/x/bcrypt@v0.2.4/mod.ts';
+
+// Fuse.js - NPM (for fuzzy matching)
+export { default as Fuse } from 'npm:fuse.js@7.0.0';
+//import Fuse from "https://deno.land/x/fuse@v6.4.1/mod.ts";
