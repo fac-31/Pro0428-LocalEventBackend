@@ -1,28 +1,40 @@
-// deno-lint-ignore-file require-await
 import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
 import { eventService } from '../services/event.service.ts';
 //import { generateEvents } from '../services/openai.service.ts';
-import { eventFilterSchema } from "https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts";
+import {
+  eventFilterSchema,
+  FullEvent,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
+import { verifyToken } from '../utils/token.utils.ts';
+import { Payload } from '../../deps.ts';
+import { userService } from '../services/user.service.ts';
 
 export const getAllEvents = async (ctx: Context) => {
+  const auth = ctx.request.headers.get('Authorization');
+  const token = auth && auth.split(' ')[1];
+
+  let userId: string | null = null;
+  if (token) {
+    try {
+      const user: Payload = await verifyToken(token);
+      userId = user._id as string;
+    } catch (error) {
+      console.warn('Invalid token in /events: ' + error);
+    }
+  }
+
   const params = ctx.request.url.searchParams;
-
   const rawModes = params.getAll('mode');
-
   const normalizedModes = rawModes
     .flatMap((param) => param.split(','))
     .map((mode) => mode.trim().toLowerCase())
-    .filter(Boolean); // removes empty strings
+    .filter(Boolean);
 
   const parseResult = eventFilterSchema.safeParse({
     mode: normalizedModes.length > 0 ? normalizedModes : undefined,
   });
 
-  let allEvents;
-  if (parseResult.success) {
-    console.log(parseResult.data);
-    allEvents = await eventService.getAllEvents(parseResult.data);
-  } else {
+  if (!parseResult.success) {
     ctx.response.status = Status.BadRequest;
     ctx.response.body = {
       error: 'Invalid query parameters',
@@ -31,7 +43,21 @@ export const getAllEvents = async (ctx: Context) => {
     return;
   }
 
-  ctx.response.body = allEvents;
+  try {
+    const [allEvents, savedEvents] = await Promise.all([
+      eventService.getAllEvents(parseResult.data),
+      userId ? userService.getUserEvents(userId) : Promise.resolve([]),
+    ]);
+
+    ctx.response.body = {
+      events: allEvents,
+      savedEventIds: savedEvents.map((x) => x._id),
+    };
+  } catch (err) {
+    console.error('Error fetching combined event data:', err);
+    ctx.response.status = Status.InternalServerError;
+    ctx.response.body = { error: 'Internal server error' };
+  }
 };
 
 export const getEventById = async (ctx: RouterContext<'/:id'>) => {
@@ -53,6 +79,69 @@ export const getEventById = async (ctx: RouterContext<'/:id'>) => {
   }
 
   ctx.response.body = event;
+};
+
+export const updateEventById = async (ctx: RouterContext<'/:id'>) => {
+  const user = ctx.state.user;
+
+  if (!user) {
+    ctx.response.status = Status.Unauthorized;
+    ctx.response.body = { message: 'User not authenticated' };
+    return;
+  }
+
+  const id: string = ctx.params.id;
+  const event: Partial<FullEvent> = await ctx.request.body.json();
+  console.log(event);
+  if (!ObjectId.isValid(id)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Invalid event id "${id}"`;
+    return;
+  }
+
+  if (!eventService.isEvent(event)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Failed to validate event body`;
+    return;
+  }
+
+  const result = await eventService.updateEventById(id, event);
+
+  if (!result.acknowledged) {
+    ctx.response.status = Status.NotFound;
+    ctx.response.body = `Failed to update event by id "${id}"`;
+    return;
+  }
+
+  ctx.response.body = { message: `Updated event id "${id}"` };
+};
+
+export const deleteEventById = async (ctx: RouterContext<'/:id'>) => {
+  const user = ctx.state.user;
+
+  if (!user) {
+    ctx.response.status = Status.Unauthorized;
+    ctx.response.body = { message: 'User not authenticated' };
+    return;
+  }
+
+  const id: string = ctx.params.id;
+
+  if (!ObjectId.isValid(id)) {
+    ctx.response.status = Status.BadRequest;
+    ctx.response.body = `Invalid event id "${id}"`;
+    return;
+  }
+
+  const result = await eventService.deleteEventById(id);
+
+  if (result.deletedCount == 0) {
+    ctx.response.status = Status.NotFound;
+    ctx.response.body = `Could not find event id "${id}"`;
+    return;
+  }
+
+  ctx.response.body = { message: `Successfully deleted event id "${id}"` };
 };
 
 export const saveNewEvent = async (ctx: Context) => {
@@ -98,12 +187,12 @@ export const saveNewEvent = async (ctx: Context) => {
 //   }
 // };
 
-export const updateEvent = async (ctx: Context) => {
-  // TODO: Update event in DB
-  ctx.response.body = { message: `Update event of params.id` };
-};
+// export const updateEvent = async (ctx: Context) => {
+//   // TODO: Update event in DB
+//   ctx.response.body = { message: `Update event of params.id` };
+// };
 
-export const deleteEvent = async (ctx: Context) => {
-  // TODO: Delete event from DB
-  ctx.response.body = { message: `Delete event params.id` };
-};
+// export const deleteEvent = async (ctx: Context) => {
+//   // TODO: Delete event from DB
+//   ctx.response.body = { message: `Delete event params.id` };
+// };

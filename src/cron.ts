@@ -2,8 +2,8 @@ import { eventService } from './services/event.service.ts';
 import { generateEvents } from './services/openai.service.ts';
 import { deleteOldEvents } from './utils/deleteOldEvents.ts';
 
-Deno.cron("save events cron", "*/10 * * * *", async () => {
-  console.log("executing cron job...")
+Deno.cron('save events cron', "*/10 * * * *", async () => {
+  console.log('executing cron job...');
   try {
     console.log('Daily task triggered');
 
@@ -21,12 +21,12 @@ Deno.cron("save events cron", "*/10 * * * *", async () => {
       console.log('There were no events to save');
     }
   } catch (error) {
-    console.error("Cron job failed:", error);
+    console.error('Cron job failed:', error);
   }
 });
 
 //cron for every 10mins
-// "*/10 * * * *"
+// "*/3 * * * *"
 
 // cron for midnight
 // "0 0 * * *"

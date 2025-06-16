@@ -11,5 +11,3 @@ jobs:
     steps:
       - name: Trigger daily task
         run: 'curl -H "X-Daily-Token: ${{ secrets.DAILY_JOB_TOKEN }}" https://your-deploy-url.deno.dev/'
-
-   

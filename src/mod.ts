@@ -1,4 +1,5 @@
 import app from './app.ts';
+import './cron.ts';
 
 try {
   const PORT = Number(Deno.env.get('PORT')) || 3000;

@@ -8,6 +8,7 @@
     "event-test": "deno run --allow-read --allow-write testing/testScripts/event.utils.test.ts"
   },
   "imports": {
+    "fuse.js": "npm:fuse.js@^7.1.0",
     "mongodb": "npm:mongodb",
     "zod": "npm:zod",
     "@openai/openai": "jsr:@openai/openai@^4.98.0"
