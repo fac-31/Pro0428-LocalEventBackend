@@ -41,7 +41,7 @@ const deleteEventById = async (id: string) => {
 };
 
 const checkForDuplicates = async (event: FullEvent): Promise<FullEvent[]> => {
-  // Get all existing events from database
+  // Get all existing events from database 
   const allExistingEvents = await events.find({}).toArray();
   console.log("=== ALL EXISTING EVENTS ===");
   console.log(allExistingEvents);
