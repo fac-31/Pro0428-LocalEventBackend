@@ -16,5 +16,5 @@ export async function deleteOldEvents() {
     date: { $lt: today }
   });
 
-  console.log(`Deleted ${deleteCount} old event(s).`);
+  console.table(deleteCount);
 }
