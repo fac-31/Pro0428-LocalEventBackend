@@ -34,3 +34,33 @@ export {
   compareSync,
   hashSync,
 } from 'https://deno.land/x/bcrypt@v0.2.4/mod.ts';
+
+// Shared
+
+export {
+  toSafeUser,
+  UserLogInSchema,
+  UserSignUpSchema,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
+
+export type {
+  NewUser,
+  UserInDB,
+  UserLogInInput,
+  UserSignUpInput,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
+
+export {
+  eventFilterSchema,
+  eventsArraySchema,
+  eventSchema,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
+
+export type {
+  CompleteEventType,
+  Event,
+  EventFilter,
+  EventMode,
+  FrequencyObject,
+  FullEvent,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';

@@ -1,9 +1,8 @@
 // deno-lint-ignore-file require-await
-import { Context, Payload, RouterContext } from '../../deps.ts';
+import { Context, Payload, RouterContext, toSafeUser } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';
 import { Status } from '../../deps.ts';
 
-import { toSafeUser } from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
 import { ErrorResponse } from 'services/general.service.ts';
 import { GetAllUsersSuccessResponse } from 'services/users.service.ts';
 

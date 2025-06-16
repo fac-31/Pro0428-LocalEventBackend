@@ -1,14 +1,15 @@
 import { db } from '../database/connect.ts';
 import {
+  compareSync,
+  hashSync,
   NewUser,
+  OptionalId,
   toSafeUser,
   UserInDB,
   UserLogInInput,
   UserSignUpInput,
-} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
-import { compareSync, hashSync } from '../../deps.ts';
+} from '../../deps.ts';
 import { generateToken } from '../utils/token.utils.ts';
-import type { OptionalId } from '../../deps.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
 

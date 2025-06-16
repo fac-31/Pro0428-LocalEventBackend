@@ -4,8 +4,9 @@ import {
   CompleteEventType,
   EventMode,
   eventsArraySchema,
-} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
-import { OpenAI, zodTextFormat } from '../../deps.ts';
+  OpenAI,
+  zodTextFormat,
+} from '../../deps.ts';
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 
 const AI_Key: string | undefined = Deno.env.get('AI_KEY');

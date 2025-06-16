@@ -1,9 +1,11 @@
 // deno-lint-ignore-file require-await
-import { Context, RouterContext, Status } from '../../deps.ts';
 import {
+  Context,
+  RouterContext,
+  Status,
   UserLogInSchema,
   UserSignUpSchema,
-} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
+} from '../../deps.ts';
 import { authService } from '../services/auth.service.ts';
 
 import { ErrorResponse } from 'services/general.service.ts';
