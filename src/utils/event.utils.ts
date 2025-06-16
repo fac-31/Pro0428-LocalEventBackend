@@ -144,7 +144,7 @@ export function preFilterEventsByDateAndLocation(
   const newEventLocation = newEvent.location.toLowerCase().trim();
   
   return existingEvents.filter(event => {
-    const eventDate = event.date.toDateString();
+    const eventDate = event.date.toString();
     const eventLocation = event.location.toLowerCase().trim();
     
     return eventDate === newEventDate && eventLocation === newEventLocation;
