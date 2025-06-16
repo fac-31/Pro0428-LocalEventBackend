@@ -64,3 +64,26 @@ export type {
   FrequencyObject,
   FullEvent,
 } from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
+
+export type {
+  ErrorResponse,
+  MessageResponse,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/services/general.service.ts';
+
+export type {
+  LoginErrorDetails,
+  LoginErrorResponse,
+  LoginSuccessResponse,
+  MeSuccessResponse,
+  SignupErrorDetails,
+  SignupErrorResponse,
+  SignupSuccessResponse,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/services/auth.service.ts';
+
+export type {
+  GetAllEventsErrorResponse,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/services/events.service.ts';
+
+export type {
+  GetAllUsersSuccessResponse,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/services/users.service.ts';

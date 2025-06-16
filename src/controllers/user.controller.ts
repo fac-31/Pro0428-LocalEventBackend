@@ -1,7 +1,12 @@
 // deno-lint-ignore-file require-await
 import { Context, Payload, RouterContext, toSafeUser } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';
-import { Status } from '../../deps.ts';
+import {
+  ErrorResponse,
+  GetAllUsersSuccessResponse,
+  Status,
+} from '../../deps.ts';
+
 export const getUserProfile = async (ctx: Context) => {
   // TODO: Get user data from ctx.state.user
   ctx.response.body = { message: 'Get user profile' };
@@ -23,14 +28,14 @@ export const getAllUsers = async (ctx: RouterContext<'/getUsers:role'>) => {
     ctx.response.status = Status.BadRequest;
     ctx.response.body = {
       error: 'Invalid role parameter. Use "user", "admin" or "all".',
-    };
+    } as ErrorResponse;
     return;
   }
 
   try {
     const allUsers = await userService.getAllUsers(role);
     ctx.response.status = Status.OK;
-    ctx.response.body = allUsers.map(toSafeUser);
+    ctx.response.body = allUsers.map(toSafeUser) as GetAllUsersSuccessResponse;
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(`Admin Error on getAllUsers: ${error.message}`);

@@ -1,7 +1,15 @@
 // deno-lint-ignore-file require-await
 import {
   Context,
+  ErrorResponse,
+  LoginErrorDetails,
+  LoginErrorResponse,
+  LoginSuccessResponse,
+  MeSuccessResponse,
   RouterContext,
+  SignupErrorDetails,
+  SignupErrorResponse,
+  SignupSuccessResponse,
   Status,
   UserLogInSchema,
   UserSignUpSchema,
@@ -13,13 +21,13 @@ export const getCurrentUser = async (ctx: Context) => {
 
   if (!user) {
     ctx.response.status = Status.Unauthorized;
-    ctx.response.body = { message: 'User not authenticated' };
+    ctx.response.body = { error: 'User not authenticated' } as ErrorResponse;
     return;
   }
   ctx.response.body = {
     message: `Hello, ${user.username}!`,
     user,
-  };
+  } as MeSuccessResponse;
 };
 
 export const signUpUser = async (ctx: RouterContext<'/signup'>) => {
@@ -32,20 +40,24 @@ export const signUpUser = async (ctx: RouterContext<'/signup'>) => {
   if (!userInput.success) {
     console.log('Validation Errors:', userInput.error);
     ctx.response.status = Status.BadRequest;
-    ctx.response.body = { errors: userInput.error.flatten() };
+    ctx.response.body = {
+      errors: userInput.error.flatten() as SignupErrorDetails,
+    } as SignupErrorResponse;
     return;
   }
   try {
     const insertedId = await authService.createUser(userInput.data);
     ctx.response.status = Status.Created;
-    ctx.response.body = insertedId;
+    ctx.response.body = insertedId as SignupSuccessResponse;
   } catch (error) {
     ctx.response.status = Status.InternalServerError;
     if (error instanceof Error) {
       console.log('Sign up user error:', error);
-      ctx.response.body = { error: error.message };
+      ctx.response.body = { error: error.message } as ErrorResponse;
     } else {
-      ctx.response.body = { error: 'Unkown error creating user' };
+      ctx.response.body = {
+        error: 'Unkown error creating user',
+      } as ErrorResponse;
     }
   }
 };
@@ -55,22 +67,26 @@ export const loginUser = async (ctx: RouterContext<'/login'>) => {
   const userInput = UserLogInSchema.safeParse(body);
   if (!userInput.success) {
     ctx.response.status = Status.BadRequest;
-    ctx.response.body = { errors: userInput.error.flatten() };
+    ctx.response.body = {
+      errors: userInput.error.flatten() as LoginErrorDetails,
+    } as LoginErrorResponse;
     console.error(userInput.error);
     return;
   }
   try {
     const token = await authService.logInUser(userInput.data);
     ctx.response.status = Status.OK;
-    ctx.response.body = { token };
+    ctx.response.body = { token } as LoginSuccessResponse;
   } catch (error) {
     if (error instanceof Error) {
       ctx.response.status = Status.Unauthorized;
-      ctx.response.body = { error: error.message };
+      ctx.response.body = { error: error.message } as ErrorResponse;
       console.error(error.message);
     } else {
       ctx.response.status = Status.InternalServerError;
-      ctx.response.body = { error: 'Unkown error creating token' };
+      ctx.response.body = {
+        error: 'Unkown error creating token',
+      } as ErrorResponse;
       console.error(error);
     }
   }
