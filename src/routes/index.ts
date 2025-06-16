@@ -8,9 +8,6 @@ const router = new Router();
 router.get('/', (ctx) => {
   ctx.response.body = 'Hello all you lovely locals!';
 });
-router.get("/docs", (context) => {
-  context.response.redirect("https://deepwiki.com/fac-31/Pro0428-LocalEventBackend/1-overview");
-});
 
 router.use('/auth', authRoutes.routes(), authRoutes.allowedMethods());
 router.use('/users', userRoutes.routes(), userRoutes.allowedMethods());
