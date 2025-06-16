@@ -1,10 +1,13 @@
-import { Context, ObjectId, RouterContext, Status } from '../../deps.ts';
-import { eventService } from '../services/event.service.ts';
-//import { generateEvents } from '../services/openai.service.ts';
 import {
+  Context,
   eventFilterSchema,
   FullEvent,
-} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
+  ObjectId,
+  RouterContext,
+  Status,
+} from '../../deps.ts';
+import { eventService } from '../services/event.service.ts';
+//import { generateEvents } from '../services/openai.service.ts';
 import { verifyToken } from '../utils/token.utils.ts';
 import { Payload } from '../../deps.ts';
 import { userService } from '../services/user.service.ts';

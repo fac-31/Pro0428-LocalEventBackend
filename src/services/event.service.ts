@@ -4,8 +4,6 @@
 // updateEvent
 // deleteEvent
 
-import { ObjectId } from '../../deps.ts';
-import { db } from '../database/connect.ts';
 import {
   CompleteEventType,
   Event,
@@ -13,7 +11,9 @@ import {
   eventsArraySchema,
   eventSchema,
   FullEvent,
-} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
+  ObjectId,
+} from '../../deps.ts';
+import { db } from '../database/connect.ts';
 import { normaliseEvents } from '../utils/event.utils.ts';
 
 const events = db.collection<FullEvent>('events');
