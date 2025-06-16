@@ -140,7 +140,7 @@ export function preFilterEventsByDateAndLocation(
   newEvent: FullEvent,
   existingEvents: FullEvent[]
 ): FullEvent[] {
-  const newEventDate = newEvent.date.toDateString();
+  const newEventDate = newEvent.date.toString();
   const newEventLocation = newEvent.location.toLowerCase().trim();
   
   return existingEvents.filter(event => {
