@@ -1,4 +1,8 @@
-import { Event, FrequencyObject, FullEvent } from 'models/event.model.ts';
+import {
+  Event,
+  FrequencyObject,
+  FullEvent,
+} from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
 
 // Initial cleaning of titles
 export const normalizeEventTitle = (event: Event): string => {

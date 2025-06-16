@@ -8,8 +8,6 @@
     "event-test": "deno run --allow-read --allow-write testing/testScripts/event.utils.test.ts"
   },
   "imports": {
-    "models/": "./shared/src/models/",
-    "services/": "./shared/src/services/",
     "mongodb": "npm:mongodb",
     "zod": "npm:zod",
     "@openai/openai": "jsr:@openai/openai@^4.98.0"
