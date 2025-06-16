@@ -14,6 +14,7 @@
     "jsr:@std/path@1": "1.0.9",
     "npm:@types/node@*": "22.12.0",
     "npm:fuse.js@7.0.0": "7.0.0",
+    "npm:fuse.js@^7.1.0": "7.1.0",
     "npm:mongodb@*": "6.1.0",
     "npm:mongodb@6.1.0": "6.1.0",
     "npm:path-to-regexp@^6.3.0": "6.3.0",
@@ -97,6 +98,9 @@
     },
     "fuse.js@7.0.0": {
       "integrity": "sha512-14F4hBIxqKvD4Zz/XjDc3y94mNZN6pRv3U13Udo0lNLCWRBUsrMv2xwcF/y/Z5sV6+FQW+/ow68cHpm4sunt8Q=="
+    },
+    "fuse.js@7.1.0": {
+      "integrity": "sha512-trLf4SzuuUxfusZADLINj+dE8clK1frKdmqiJNb1Es75fmI5oY6X2mxLVUciLLjxqw/xr72Dhy+lER6dGd02FQ=="
     },
     "memory-pager@1.5.0": {
       "integrity": "sha512-ZS4Bp4r/Zoeq6+NLJpP+0Zzm0pR8whtGPf1XExKLJBAczGMnSi3It14OiNCStjQjM6NU1okjQGSxgEZN8eBYKg=="
@@ -242,6 +246,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@openai/openai@^4.98.0",
+      "npm:fuse.js@^7.1.0",
       "npm:mongodb@*",
       "npm:zod@*"
     ]
