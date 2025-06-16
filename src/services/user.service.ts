@@ -5,10 +5,14 @@
 
 import 'https://deno.land/std@0.224.0/dotenv/load.ts';
 import { db } from '../database/connect.ts';
-import { UserInDB } from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
-import { hashSync, ObjectId, OptionalId } from '../../deps.ts';
-import { NewUser } from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/user.model.ts';
-import { FullEvent } from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
+import {
+  FullEvent,
+  hashSync,
+  NewUser,
+  ObjectId,
+  OptionalId,
+  UserInDB,
+} from '../../deps.ts';
 
 const users = db.collection<OptionalId<UserInDB>>('users');
 const events = db.collection<FullEvent>('events');

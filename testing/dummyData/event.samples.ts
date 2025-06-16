@@ -1,4 +1,4 @@
-import { Event } from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
+import { Event } from '../../deps.ts';
 
 // Test event examples
 export const testEvents: Event[] = [
