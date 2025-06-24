@@ -1,5 +1,6 @@
 import { eventService } from './services/event.service.ts';
 import { generateEvents } from './services/openai.service.ts';
+import { deleteOldEvents } from './utils/deleteOldEvents.ts';
 
 // Deno.cron('save events cron', "*/10 * * * *", async () => {
 //   console.log('executing cron job...');

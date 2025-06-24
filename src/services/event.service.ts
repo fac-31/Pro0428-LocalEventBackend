@@ -14,7 +14,7 @@ import {
   eventSchema,
   FullEvent,
 } from 'https://raw.githubusercontent.com/fac-31/Pro0428-LocalEventShared/main/src/models/event.model.ts';
-import { normaliseEvents, detectDuplicates } from '../utils/event.utils.ts';
+import { detectDuplicates, normaliseEvents } from '../utils/event.utils.ts';
 
 const events = db.collection<FullEvent>('events');
 
@@ -41,12 +41,13 @@ const deleteEventById = async (id: string) => {
 };
 
 const checkForDuplicates = async (event: FullEvent): Promise<FullEvent[]> => {
-  // Get all existing events from database 
+  // Get all existing events from database
   const allExistingEvents = await events.find({}).toArray();
+
   
   // Use fuzzy matching to detect duplicates
   const duplicates = detectDuplicates(event, allExistingEvents, 0.6);
-  
+
   return duplicates;
 };
 
@@ -59,7 +60,7 @@ export const isEvent = (obj: unknown): obj is Event => {
 };
 
 const saveEvents = async (input: Event | CompleteEventType) => {
-  console.log("Calling saveEvents()...")
+  console.log('Calling saveEvents()...');
   if (isCompleteEventType(input)) {
     // Flatten all event categories into a single array
     const allEvents: Event[] = [
@@ -70,7 +71,7 @@ const saveEvents = async (input: Event | CompleteEventType) => {
     ];
 
     const normalisedEvents = normaliseEvents(allEvents);
-    console.log("Event title normalised...")
+    console.log('Event title normalised...');
 
     for (const event of normalisedEvents) {
       try {
@@ -79,7 +80,9 @@ const saveEvents = async (input: Event | CompleteEventType) => {
           await events.insertOne(event);
           console.log(`New event saved: ${event.name}`);
         } else {
-          console.log(`Event duplicate detected: ${event.name} - Found ${duplicates.length} similar event(s)`);
+          console.log(
+            `Event duplicate detected: ${event.name} - Found ${duplicates.length} similar event(s)`,
+          );
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -99,7 +102,11 @@ const saveEvents = async (input: Event | CompleteEventType) => {
         await events.insertOne(normalisedEvent[0]);
         console.log(`New event saved: ${normalisedEvent[0].name}`);
       } else {
-        console.log(`Event duplicate detected: ${normalisedEvent[0].name} - Found ${duplicates.length} similar event(s)`);
+        console.log(
+          `Event duplicate detected: ${
+            normalisedEvent[0].name
+          } - Found ${duplicates.length} similar event(s)`,
+        );
       }
     } catch (error) {
       if (error instanceof Error) {

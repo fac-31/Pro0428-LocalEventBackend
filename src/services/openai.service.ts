@@ -45,7 +45,8 @@ export const generateEvents = async (
 
   const systemPrompt: string =
     `You are a local guide who is an expert on ${location} and all the interesting events in that area. You will respond
-    with the specified events near this location in the valid format with the distance to the event provided in kilometers.`;
+    with the specified events near this location in the valid format with the distance to the event provided in kilometers. You must
+    not provide any events that are in the past, only events that are on today or in the future.`;
 
   try {
     const formatParser = zodTextFormat(
